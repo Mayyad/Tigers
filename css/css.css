@@ -7,6 +7,10 @@
 	margin-bottom:2%;	
 }
 
+.collaps-hide{
+	display:none;	
+}
+
 .spinner {
   width: 100%;
 }
