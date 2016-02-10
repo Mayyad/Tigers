@@ -10,7 +10,17 @@
 .collaps-hide{
 	display:none;	
 }
+.marginRight{
+	margin-right:5%;	
+}
 
+.marginLeft{
+	margin-left:5%;	
+}
+
+.background{
+	background:#dfdfdf;	
+}
 .spinner {
   width: 100%;
 }
