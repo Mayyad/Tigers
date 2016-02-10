@@ -1,10 +1,23 @@
 
 /* CSS Document */
 .paddingTop{
-	padding-top:1.5%;	
+	padding-top:1.5%;
+	
+}
+.paddingBottom{
+	padding-bottom::1.5%;
+		
 }
 .marginBottom{
 	margin-bottom:2%;	
+}
+
+.paddingRight{
+	padding-right:5%;	
+}
+
+.paddingLeft{
+	padding-left:5%;	
 }
 
 .collaps-hide{
