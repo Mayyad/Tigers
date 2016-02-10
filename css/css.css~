@@ -10,17 +10,7 @@
 .collaps-hide{
 	display:none;	
 }
-.marginRight{
-	margin-right:5%;	
-}
 
-.marginLeft{
-	margin-left:5%;	
-}
-
-.background{
-	background:#dfdfdf;	
-}
 .spinner {
   width: 100%;
 }
@@ -128,7 +118,7 @@ body {
   -moz-border-radius:20px;
   border-radius:20px;
   display:inline-block;
-  width:35px;
+  width:30px;
   text-align:center;
   font:bold 10px/28px Arial,Sans-Serif;
   color:#999;
