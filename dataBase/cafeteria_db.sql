@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Feb 11, 2016 at 10:32 AM
--- Server version: 5.5.47-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.14
+-- Host: 127.0.0.1
+-- Generation Time: Feb 12, 2016 at 12:44 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS `products_tb` (
 CREATE TABLE IF NOT EXISTS `rooms_tb` (
   `id` int(2) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
+  `status` int(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
