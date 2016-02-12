@@ -14,8 +14,21 @@
 <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
+              <?php
+			  if($_SESSION['type'] == "1")
+				{
+				?>
+                	<li class="active"><a href="orders.php">Home </a></li>
+                <?php
+				}
+				else
+				{
+			  ?>
                 <li class="active"><a href="index.html">Home </a></li>
-                <li><a href="myOrders.html">My Orders</a></li>
+                <?php
+				}
+				?>
+                <li><a href="myOrders.php">My Orders</a></li>
                 <?php
 				if($_SESSION['type'] == "1")
 				{
@@ -24,7 +37,7 @@
                 <li><a href="categories.html">Categories</a></li>
                 <li><a href="rooms.php">Users</a></li>
                 <li><a href="manualOrders.html">Manual Orders</a></li>
-                <li><a href="checks.html">Checks</a></li>
+                <li><a href="checks.php">Checks</a></li>
                 <?php
 				}
 				?>

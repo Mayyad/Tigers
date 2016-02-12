@@ -9,6 +9,10 @@ function __autoload($name)
 $orders=new orders();
 $validate = new validation();
 if(isset($_SESSION['cafeteriaSystem'])  ){
+if($_SESSION['type'] != '1' )
+{
+	header("location:index.html");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,18 +52,9 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
     <div class="container">
     	<!-- Menu Bar-->
             <?php require_once("includes/menu.php"); ?>
-        <!-- End Of Menu Bar -->
-    	
-       
+        <!-- End Of Menu Bar --> 
         
-        <!--  <page Body  Will Change in Every Page> -->
-        <div class="row">    	
-            <div class="page-header text-center">
-                <h1>Orders</h1>
-            </div> 
-        </div>
-        
-        <!-- if any action Completed -->
+       <!-- if any action Completed -->
         <?php
         if(isset($_GET['action']))
         {
@@ -86,16 +81,16 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
         
         <!-- End Of The Action Complete Pop Up -->
         
-        <!--  Edit  Order (Cancel It ) Pop Up  -->
+        <!--  Edit  Order (deliver It ) Pop Up  -->
         <?php
-		if(isset($_GET['cancel']))
+		if(isset($_GET['deliver']))
 		{
-			$orderNum=$_GET['cancel'];
+			$orderNum=$_GET['deliver'];
 			if($validate -> checkNotNull($orderNum))
 			{
 				if($validate -> checkNumeric($orderNum))
 				{
-					if($orders -> checkOrderIsMine($orderNum , $_SESSION['cafeteriaSystem']))
+					if($orders -> checkOrderStatus($orderNum , 3))
 					{
 						?>
 						<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -103,16 +98,16 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
 							<div class="modal-content">
 							  <div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span >&times;</span></button>
-								<h4 class="modal-title text-left">Cancel Order</h4>
+								<h4 class="modal-title text-left">Deliver Order</h4>
 							  </div>
 							  <div class="modal-body ">
 								  <?php
-									if(isset($_POST['cancelOrderBtn']))
+									if(isset($_POST['deliverOrderBtn']))
 									{
 										
-											if($orders -> cancelOrder($orderNum))
+											if($orders -> deliverOrder($orderNum))
 											{
-												header("location:myOrders.php?action=Ordered Calnceled Succssesfilly");
+												header("location:orders.php?action=Orders Delivered Succssesfilly");
 											}
 											else
 											{
@@ -124,12 +119,12 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
 										
 									}
 								  ?>              
-								<form class="form-horizontal" action="myOrders.php?cancel=<?php echo $orderNum ?>" method="POST">
+								<form class="form-horizontal" action="orders.php?deliver=<?php echo $orderNum ?>" method="POST">
 									<div class="row">
-									 	Are You Sure You Wanna To Cancel This Order?
+									 	Are You Sure You Wanna To Deliver This Order?
                                         <div class="text-right">
-                                            <button type="submit" name="cancelOrderBtn" class="btn btn-danger">yes</button>
-                                            <a class="btn btn-info" href="myOrders.php">No</a>	
+                                            <button type="submit" name="deliverOrderBtn" class="btn btn-danger">yes</button>
+                                            <a class="btn btn-info" href="orders.php">No</a>	
                                         </div>
                                  	 </div>
                                      </form>
@@ -144,71 +139,48 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
 					}
 					else
 					{
-						header("location:myOrders.php");	
+						header("location:orders.php");	
 					}
 				}
 				else
 				{
-					header("location:myOrders.php");	
+					header("location:orders.php");	
 				}
 			}
 			else
 			{
-				header("location:myOrders.php");	
+				header("location:orders.php");	
 			}
 		}
 		?>
-        <!-- Edit  Order (Cancel It ) Pop Up  -->
+        <!-- Edit  Order (deliver It ) Pop Up  -->
         
+        <!--  <page Body  Will Change in Every Page> -->
+        <div class="row">    	
+            <div class="page-header text-center">
+                <h1>Orders</h1>
+            </div> 
+        </div>
         
         <!-- All Will Write Their Code Here  -->
         
-        
-        <!-- End Of Check -->
         <div class="row">
         	<div class="col-sm-12">
-            	<form class="form-inline">
-                  <div class="form-group">
-                    <label for="datefrom">From</label>
-                    <input type="date" class="form-control" id="datefrom" placeholder="Enter Date From">
-                  </div>
-                  <div class="form-group">
-                    <label for="dateto">To</label>
-                    <input type="date" class="form-control" id="dateto" placeholder="Enter Date To">
-                  </div>
-                  <button type="submit" class="btn btn-default">Search</button>
-                </form>
+            	<?php
+                	if($orders -> checkReservedOrders())
+					{
+						$orders -> viewReservedOrders();
+					}
+					else
+					{
+						?>
+                        <div class="alert alert-danger">No Orders Found</div>
+                        <?php	
+					}
+                ?>
+                
             </div>
         </div>
-        <br>
-                        <div class="row table-responsive">
-                            <?php
-							if($orders ->  checkFoundOrdersForId($_SESSION['cafeteriaSystem']))
-							{
-								$orders -> viewChecksForUser($_SESSION['cafeteriaSystem'] , "1");
-							}
-							else
-							{
-								?>
-									<div class="alert alert-danger">Sorry No Orders Found  For This User</div>
-								<?php	
-							}
-							?>
-                        
-                           
-                        </div>
-                        <!-- End Of Check -->
-                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         <!--  Untill Here -->
         

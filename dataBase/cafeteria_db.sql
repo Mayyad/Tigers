@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2016 at 03:55 AM
+-- Generation Time: Feb 12, 2016 at 12:33 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -31,7 +31,15 @@ CREATE TABLE IF NOT EXISTS `categories_tb` (
   `name` varchar(255) NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `categories_tb`
+--
+
+INSERT INTO `categories_tb` (`id`, `name`, `status`) VALUES
+(1, 'Hot Drinks', 1),
+(2, 'Cold Drinks', 1);
 
 -- --------------------------------------------------------
 
@@ -47,7 +55,17 @@ CREATE TABLE IF NOT EXISTS `check_tb` (
   `total_price` int(10) NOT NULL,
   `roomNo` int(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `check_tb`
+--
+
+INSERT INTO `check_tb` (`id`, `u_id`, `date`, `status`, `total_price`, `roomNo`) VALUES
+(1, 1, '2016-02-01', 1, 100, 1),
+(2, 2, '2016-02-01', 1, 10, 1),
+(5, 1, '2016-02-12', 3, 25, 1),
+(6, 2, '2016-02-12', 3, 37, 2);
 
 -- --------------------------------------------------------
 
@@ -62,7 +80,22 @@ CREATE TABLE IF NOT EXISTS `orders_tb` (
   `amount` int(5) NOT NULL,
   `totalPrice` int(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `orders_tb`
+--
+
+INSERT INTO `orders_tb` (`id`, `check_id`, `prod_id`, `amount`, `totalPrice`) VALUES
+(1, 1, 4, 4, 60),
+(2, 1, 2, 4, 40),
+(3, 2, 2, 1, 10),
+(4, 5, 1, 2, 10),
+(5, 5, 4, 1, 15),
+(6, 6, 1, 1, 5),
+(7, 6, 2, 1, 10),
+(8, 6, 3, 1, 7),
+(9, 6, 4, 1, 15);
 
 -- --------------------------------------------------------
 
@@ -78,7 +111,17 @@ CREATE TABLE IF NOT EXISTS `products_tb` (
   `prod_pic` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_mysql500_ci NOT NULL,
   `cat_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `products_tb`
+--
+
+INSERT INTO `products_tb` (`id`, `name`, `price`, `status`, `prod_pic`, `cat_id`) VALUES
+(1, 'Tea', 5, 1, '3.jpg', 1),
+(2, 'Orange', 10, 1, '1.jpg', 2),
+(3, 'coffee', 7, 1, '4.jpg', 1),
+(4, 'Coktil', 15, 1, '2.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -91,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `rooms_tb` (
   `name` varchar(255) NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `rooms_tb`
