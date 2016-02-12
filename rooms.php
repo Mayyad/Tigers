@@ -11,7 +11,7 @@ $validate = new validation();
 if(isset($_SESSION['cafeteriaSystem'])  ){
 if($_SESSION['type'] != '1' )
 {
-	//header("location:index.html");
+	header("location:index.html");
 }
 ?>
 <!DOCTYPE html>
