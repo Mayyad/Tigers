@@ -13,15 +13,22 @@ $row=mysqli_fetch_array($res);
 
 //$file_name = 'document.txt';
 $client_time = isset($_GET['lastModified'])?$_GET['lastModified']:0;
+
 //$server_time = filemtime($file_name);
 $server_time = $row['id'];
-while($client_time >= $server_time){
+while($client_time <= $server_time){
 	sleep(10);
 	clearstatcache();
-	$server_time = $row['id'];
+	$query1 = " select * from check_tb  where  status = '3' order by id DESC limit 1";  
+$res1 = $mysqli->query($query1) or die (mysqli_error($mysqli));
+$row1=mysqli_fetch_array($res1);
+	$client_time=$row1['id'];
 }
-$client_time=$row['id'];
-echo $server_time ."<BR>" . $client_time;
+//$client_time = $row['id'];
+//echo $server_time ."<BR>" . $client_time;
+
+
+
 
                 	if($orders -> checkReservedOrders())
 					{
@@ -36,10 +43,11 @@ echo $server_time ."<BR>" . $client_time;
 
 
 
-/*
+
+
 $response = array();
-$response['lastModified'] = $server_time;
-$response['msg'] = file_get_contents($file_name);
-echo json_encode($response);*/
+$response['lastModified'] = $client_time;
+$response['msg'] = "kkkkk";
+//echo json_encode($response);
 
 ?>

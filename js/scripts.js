@@ -38,18 +38,18 @@ $('.collapse').collapse({
 */
 });
 
-var lastModified = 0;
+var LastModified = 0;
 
 function ordersRedirectDinamicaly(){
 	$.ajax({
 		url:"ajax-files/ordersRedirectPage.php",
 		method:'get',
 		data:{
-			"lastModified":lastModified
+			"lastModified":LastModified
 		},
 		success:function(response){
 			
-			lastModified = response.lastModified;
+			LastModified = response.lastModified;
 			setTimeout(ordersRedirectDinamicaly,3000);	
 			$("#viewOrders").html(response);
 		}
