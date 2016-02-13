@@ -2,6 +2,11 @@ $(function(){
 $('#myModal').modal('toggle');
 $('[data-toggle="tooltip"]').tooltip();
 
+
+
+
+
+
 $('#viewMyOrdersBtn').click(function()
 {
 	var to=$('#dateto').val();
@@ -22,19 +27,7 @@ $('#viewMyOrdersBtn').click(function()
 	}
 });
 
-$('#resetMyOrdersPageBtn').click(function()
-{
-	alert("aaaaaa");
-	$.ajax(
-	{
-		type : 'POST',
-		url : "ajax-files/viewMyOrdersReset.php" ,
-		success : function( result )
-		{
-			$("#viewMyOrdersSearchView").html(result);	
-		}
-	});
-});
+
 
 
 /*
@@ -44,3 +37,22 @@ $('.collapse').collapse({
 });
 */
 });
+
+var lastModified = 0;
+
+function ordersRedirectDinamicaly(){
+	$.ajax({
+		url:"ajax-files/ordersRedirectPage.php",
+		method:'get',
+		data:{
+			"lastModified":lastModified
+		},
+		success:function(response){
+			
+			lastModified = response.lastModified;
+			setTimeout(ordersRedirectDinamicaly,3000);	
+			$("#viewOrders").html(response);
+		}
+
+	});
+}

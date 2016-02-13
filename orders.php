@@ -46,7 +46,7 @@ if($_SESSION['type'] != '1' )
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body onLoad="ordersRedirectDinamicaly()">
   
 
     <div class="container">
@@ -165,7 +165,7 @@ if($_SESSION['type'] != '1' )
         <!-- All Will Write Their Code Here  -->
         
         <div class="row">
-        	<div class="col-sm-12">
+        	<div id="viewOrders" class="col-sm-12">
             	<?php
                 	if($orders -> checkReservedOrders())
 					{

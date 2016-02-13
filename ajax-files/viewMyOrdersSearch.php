@@ -1,5 +1,19 @@
 <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
-<script type="text/javascript" src="../js/scripts.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+<script> 
+$('#resetMyOrdersPageBtn').click(function()
+{
+	$.ajax(
+	{
+		type : 'POST',
+		url : "ajax-files/viewMyOrdersReset.php" ,
+		success : function( result )
+		{
+			$("#viewMyOrdersSearchView").html(result);	
+		}
+	});
+});
+</script>
 <?php
 	session_start();
 	require_once("../files/orders.php");
