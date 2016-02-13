@@ -170,18 +170,18 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
             	<form class="form-inline">
                   <div class="form-group">
                     <label for="datefrom">From</label>
-                    <input type="date" class="form-control" id="datefrom" placeholder="Enter Date From">
+                    <input type="text" class="form-control" id="datefrom" placeholder="YYYY-MM-DD">
                   </div>
                   <div class="form-group">
                     <label for="dateto">To</label>
-                    <input type="date" class="form-control" id="dateto" placeholder="Enter Date To">
+                    <input type="text" class="form-control" id="dateto" placeholder=" YYYY-MM-DD">
                   </div>
-                  <button type="submit" class="btn btn-default">Search</button>
+                  <button type="button" class="btn btn-default" id="viewMyOrdersBtn">Search</button>
                 </form>
             </div>
         </div>
         <br>
-                        <div class="row table-responsive">
+                        <div id="viewMyOrdersSearchView" class="row  table-responsive">
                             <?php
 							if($orders ->  checkFoundOrdersForId($_SESSION['cafeteriaSystem']))
 							{
