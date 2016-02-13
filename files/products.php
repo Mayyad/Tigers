@@ -3,7 +3,7 @@ require_once("dbConnect.php");
 require_once("validation.php");
 
 
-class orders
+class products
 {  
 		
        function __construct() {  
@@ -20,12 +20,12 @@ class orders
 		
 		
 		
-		/************************* Check If There is Reserved Orders on dataBase Or No *************************/
-		function checkReservedOrders()
+		/************************* Check If There is Available Products on dataBase Or No *************************/
+		function checkAvailableProducts()
 		{
 			$db = dbConnect::getInstance();
     		 $mysqli = $db->getConnection();
-			$query = " select * from check_tb  where  status = '3'";  
+			$query = " select * from products_tb  where  status = '1'";  
             $res = $mysqli->query($query) or die (mysqli_error($mysqli));
 			if(mysqli_num_rows($res) > 0)
 			{
@@ -36,6 +36,33 @@ class orders
 				return false;
 			}
 		}
+		
+		/************************* view All Available Products on dataBase Or No *************************/
+		function viewavAilableProducts()
+		{
+			$db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+			$query = " select * from products_tb  where  status = '1'";  
+            $res = $mysqli->query($query) or die (mysqli_error($mysqli));
+			if(mysqli_num_rows($res) > 0)
+			{
+				while($rowProduct = mysqli_fetch_array($res))
+				{
+					?>
+                    <div class="col-sm-2 ">
+                        <img  name="<?php echo $rowProduct['name'] ?>" src="uploads/products/<?php echo $rowProduct['prod_pic'] ?>" data-toggle="tooltip" data-placement="right" title="Price : <?php echo $rowProduct['price'] ?> LE" class="img-responsive img-thumbnail prouctImage" />
+                        <h4 class="text-center text-muted"><?php echo $rowProduct['name'] ?></h4>
+                        
+                    </div>
+                    <?php	
+				}
+			}
+			
+		}
+		
+		
+		
+		
 		
 		
 		/************************* Check For Order Number is Mine Or No on dataBase Or No *************************/
