@@ -69,7 +69,6 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
                 
                 </div>
                 
-                
             <!--
             	<div class="row text-center marginBottom">
                 	<div class="col-xs-3 paddingTop">
@@ -120,7 +119,7 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
                 <hr>
                 
                 <div class="row">
-                	<label>Total Price : 35 EGP</label>
+                	<label id="orderSum"></label>
                 </div>
                 
                 <div class="row text-right">

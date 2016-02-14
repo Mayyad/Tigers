@@ -1,6 +1,7 @@
 
 
 $(function(){
+var sumOrder = 0;	
 $('#myModal').modal('toggle');
 $('[data-toggle="tooltip"]').tooltip();
 
@@ -30,15 +31,69 @@ $('#viewMyOrdersBtn').click(function()
 });
 
 
-
-
 $('.prouctImage').click(function() {
 	var product =	$(this).attr("name");
-	var price =	$(this).attr("name");	
-	$("#appendProducts").append('<div id="'+product+'Append" class="row text-center marginBottom "><div class="col-xs-3 paddingTop">'+product+'</div><div class="col-xs-4 "><div class="input-group spinner"><input type="number"  class="amountText form-control" value="1"></div></div><div class="col-xs-3 paddingTop">14 EGP</div><div class="col-xs-2 paddingTop "><button type="button" name="'+product+'" class="deleteBtn btn-link">  X  </button></div></div>');
+	var price =	$(this).attr("alt");
 	
+	sumOrder=parseInt(sumOrder) + parseInt(price);
+	$("#orderSum").html("Your Total Order Price : "+sumOrder + " EGP");
+	if(document.getElementById(product +"Append")){
+		//chidren.next(div).child.inpu
+		var myval = parseInt($("#"+product +"Append").children("div").next("div").children("div").children("input").attr("value"));
+		myval= myval + 1;
+		price = price * myval;
+	
+		$("#"+product +"Append").children("div").next("div").children("div").children("input").attr("value" , myval)
+		$("#"+product +"Append").children("div").next("div").next("div").children("span").text(price);
+		//console.log(price + myval);
+		
+	}
+	else
+	{
+		$("#appendProducts").append('<div id="'+product+'Append" class="row text-center marginBottom "><div class="col-xs-3 paddingTop">'+product+'</div><div class="col-xs-4 "><div class="input-group spinner"><input type="text" name="'+product+'" class="form-control" value="1"><div class="input-group-btn-vertical"><button class="incrementBtn btn btn-default" type="button"><i class="fa fa-caret-up">+</i></button><button class="decrementBtn btn btn-default" type="button"><i class="fa fa-caret-down">-</i></button></div></div></div><div class="col-xs-3 paddingTop"><span>'+price+'</span><b> EGP</b></div><div class="col-xs-2 paddingTop "><button type="button" name="'+product+'" class="deleteBtn btn-link">  X  </button></div></div>');
+	}
 	
 });
+
+
+
+
+
+
+
+$("body").on("click", ".incrementBtn", function (e) {
+	var price = $(this).parent("div").parent("div").parent("div").next("div").children("span").text();
+	
+var myval = parseInt($(this).parent("div").prev().val());
+	price = price / myval;
+	var myval = myval + 1;
+	sumOrder=parseInt(sumOrder)+ price;
+	price = price * myval;
+	$(this).parent("div").prev().attr("value" , myval) ;
+	price = $(this).parent("div").parent("div").parent("div").next("div").children("span").text(price);
+	//console.log(price + myval);
+	$("#orderSum").html("Your Total Order Price : "+sumOrder + " EGP");
+});
+
+$("body").on("click", ".decrementBtn", function (e) {
+var price = $(this).parent("div").parent("div").parent("div").next("div").children("span").text();
+	
+var myval = parseInt($(this).parent("div").prev().val());
+	price = price / myval;
+	if(myval > 1)
+	{
+		var myval = myval - 1;
+		sumOrder=parseInt(sumOrder)- price;
+		price = price * myval;
+		
+	}
+	
+	$(this).parent("div").prev().attr("value" , myval) ;
+	price = $(this).parent("div").parent("div").parent("div").next("div").children("span").text(price);
+	//console.log(price + myval);
+	$("#orderSum").html("Your Total Order Price : "+sumOrder + " EGP");
+});
+
 
 $("body").on("click", ".deleteBtn", function (e) {
 	var product = $(this).attr("name");
