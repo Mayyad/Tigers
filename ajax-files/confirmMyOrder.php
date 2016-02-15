@@ -1,3 +1,5 @@
+<script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
 <?php
 session_start();
 require_once("../files/products.php");
@@ -25,33 +27,31 @@ $orders = new orders();
 			{
 				if($returnRow = $orders -> insertCheck($_SESSION['cafeteriaSystem'] , $_POST['roomNo'] , $_POST['orderNotice']))
 				{
-					echo $returnRow;
+					foreach($_POST as $key => $value)
+					{
+						if(is_numeric($key))
+						{
+							if($products -> returnProductInfo($key))
+							{	
+								$productInfo = mysqli_fetch_array($products -> returnProductInfo($key));
+								//echo "Found" . $productInfo['name'];	
+								$sum= $value * $productInfo['price'];
+								$orders -> insertOrder($returnRow , $key , $value , $sum );
+								$totalAmount=$totalAmount+$sum;
+							}
+							
+								
+						}
+					}
+					$orders->updateOrder($returnRow , $totalAmount ,"index.php");
+					?><script>location.href='index.php';</script><?php
 				}
 				else
 				{
 					echo "Wrong";	
 				}
 			
-			/*
-				foreach($_POST as $key => $value)
-				{
-					if(is_numeric($key))
-					{
-						if($productInfo = mysqli_fetch_array($products -> returnProductInfo($key)))
-						{
-							
-							echo "Found" . $productInfo['name'];	
-						}
-						else
-						{
-							echo "Not Found";	
-						}
-							
-					}
-						
-						
-				//	echo $key."  " .$value."<br>";	
-				}*/
+			
 			}
 			else
 			{

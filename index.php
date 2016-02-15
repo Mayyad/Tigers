@@ -139,7 +139,7 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
                         	<?php
 								if($orders -> checkFoundOrdersForId($_SESSION['cafeteriaSystem']))
 								{
-									$orders -> viewMyLastOrder($_SESSION['cafeteriaSystem']);	
+									$orders -> viewMyLastOrder($_SESSION['cafeteriaSystem']);
 								}
 								else
 								{

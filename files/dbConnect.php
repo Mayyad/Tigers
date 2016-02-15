@@ -5,8 +5,8 @@ class dbConnect
 	private $_connection;
 	private static $_instance; //The single instance
 	private $_host = "localhost";
-	private $_username = "ayyad";
-	private $_password = "sql";
+	private $_username = "root";
+	private $_password = "";
 	private $_database = "cafeteria_db";
 	/*
 	Get an instance of the Database
@@ -22,6 +22,8 @@ class dbConnect
 	private function __construct() {
 		$this->_connection = new mysqli($this->_host, $this->_username, 
 			$this->_password, $this->_database);
+			
+			mysqli_query($this->_connection,"SET charset UTF8");
 	
 		// Error handling
 		if(mysqli_connect_error()) {
