@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+require_once("files/dbConnect.php");
+require_once("files/validation.php");
+
+?>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
