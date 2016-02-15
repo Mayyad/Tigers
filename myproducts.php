@@ -1,10 +1,20 @@
-<!DOCTYPE html>
 <?php
-require_once("files/dbConnect.php");
-require_once("files/validation.php");
+ob_start();
+session_start();
+function __autoload($name)
+{
+	include_once("files/".$name.".php");	
+}
 
+$users = new users();
+$rooms=new rooms();
+$validate = new validation();
+if(isset($_SESSION['cafeteriaSystem'])  ){
+if($_SESSION['type'] != '1' )
+{
+	header("location:index.php");
+}
 ?>
-
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -193,3 +203,11 @@ require_once("files/validation.php");
 
 </body>
 </html>
+
+<?php
+}
+else
+{
+	header("location:login.php");	
+}
+?>
