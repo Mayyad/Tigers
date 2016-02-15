@@ -43,11 +43,46 @@ class orders
 		{
 			$db = dbConnect::getInstance();
     		 $mysqli = $db->getConnection();
-			$query = " insert into check_tb set u_id='".$u_id."' ,roomNo ='".$roomNo."' , time='".time()."' , date=NOW() , status='3' ";  
+			$query = " insert into check_tb set u_id='".$u_id."' ,roomNo ='".$roomNo."' , date='".date("Y-m-d")."' , time='".time()."' , timeStamp=NOW() , status='3' , notice='".$notice."' ";  
             $res = $mysqli->query($query) or die (mysqli_error($mysqli));
 			if($res)
 			{
 				return  $mysqli->insert_id;	
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		/************************* Insert New Order To DataBase *************************/
+		function insertOrder($check_id , $product_id, $amount, $sum )
+		{
+			$db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+			$query = " insert into orders_tb set check_id='".$check_id."' ,prod_id='".$product_id."' , amount='".$amount."' , totalPrice='".$sum."'  ";  
+            $res = $mysqli->query($query) or die (mysqli_error($mysqli));
+			if($res)
+			{
+				return  true;	
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		
+		/************************* Order Update To DataBase *************************/
+		function updateOrder($rowID , $sum , $path)
+		{
+			$db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+			$query = " update check_tb set total_price='".$sum."' where id='".$rowID."' ";  
+            $res = $mysqli->query($query) or die (mysqli_error($mysqli));
+			if($res)
+			{
+				header("location:".$path."");	
 			}
 			else
 			{
@@ -212,7 +247,7 @@ class orders
 						{
 							?>
                             <tr  >
-                                <td><?php echo $row['date'] ?> <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#check_<?php echo $row['id'] ?>" aria-expanded="true" aria-controls="#check_<?php echo $row['id'] ?>">+</a></label></td>
+                                <td><?php echo $row['timeStamp'] ?> <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#check_<?php echo $row['id'] ?>" aria-expanded="true" aria-controls="#check_<?php echo $row['id'] ?>">+</a></label></td>
                                 <td><?php  $this -> getOrderType($row['status']) ?></td>
                                 <td><?php echo $row['total_price'] ?></td>
                                 <?php if( $action !="2"){	?><td class="text-center"> <?php if($row['status'] == "3"  ) { ?><a href="myOrders.php?cancel=<?php echo $row['id'] ?>" class="btn btn-info">Cancel</a> <?php } ?> </td> <?php } ?>
@@ -309,7 +344,7 @@ class orders
 						{
 							?>
                             <tr  >
-                                <td><?php echo $row['date'] ?> <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#check_<?php echo $row['id'] ?>" aria-expanded="true" aria-controls="#check_<?php echo $row['id'] ?>">+</a></label></td>
+                                <td><?php echo $row['timeStamp'] ?> <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#check_<?php echo $row['id'] ?>" aria-expanded="true" aria-controls="#check_<?php echo $row['id'] ?>">+</a></label></td>
                                 <td><?php  $this -> getOrderType($row['status']) ?></td>
                                 <td><?php echo $row['total_price'] ?></td>
                                 <?php if( $action !="2"){	?><td class="text-center"> <?php if($row['status'] == "3"  ) { ?><a href="myOrders.php?cancel=<?php echo $row['id'] ?>" class="btn btn-info">Cancel</a> <?php } ?> </td> <?php } ?>
@@ -416,7 +451,7 @@ class orders
                                 </thead>
                                 <tbody >
                                     <tr >
-                                        <td><?php echo $row['date'] ?></td>
+                                        <td><?php echo $row['timeStamp'] ?></td>
                                         <td><?php echo $rowUser['name'] ?></td>
                                         <td><?php echo $rowUser['roomNo'] ?></td>
                                         <td><?php echo $rowUser['ext'] ?></td>

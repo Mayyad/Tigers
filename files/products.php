@@ -67,7 +67,7 @@ class products
     		 $mysqli = $db->getConnection();
 			$query = " select * from products_tb  where  id = '".$p_id."'";  
             $res = $mysqli->query($query) or die (mysqli_error($mysqli));
-			if(mysqli_num_rows($res) > 0)
+			if($res)
 			{
 				return $res;
 			}

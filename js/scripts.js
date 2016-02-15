@@ -32,6 +32,8 @@ $('#viewMyOrdersBtn').click(function()
 
 
 $('.prouctImage').click(function() {
+	var product_id =	$(this).attr("name");
+	
 	var product =	$(this).parent("div").children("h4").text();
 	var price =	$(this).attr("alt");
 	
@@ -50,7 +52,7 @@ $('.prouctImage').click(function() {
 	}
 	else
 	{
-		$("#appendProducts").append('<div id="'+product+'Append" class="row text-center marginBottom "><div class="col-xs-3 paddingTop">'+product+'</div><div class="col-xs-4 "><div class="input-group spinner"><input disabled type="text" id="'+product+'" name="'+product+'" class="productValue form-control" value="1"><div class="input-group-btn-vertical"><button class="incrementBtn btn btn-default" type="button"><i class="fa fa-caret-up">+</i></button><button class="decrementBtn btn btn-default" type="button"><i class="fa fa-caret-down">-</i></button></div></div></div><div class="col-xs-3 paddingTop"><span>'+price+'</span><b> EGP</b></div><div class="col-xs-2 paddingTop "><button type="button" name="'+product+'" class="deleteBtn btn-link">  X  </button></div></div>');
+		$("#appendProducts").append('<div id="'+product+'Append" class="row text-center marginBottom "><div class="col-xs-3 paddingTop">'+product+'</div><div class="col-xs-4 "><div class="input-group spinner"><input disabled type="text" id="'+product_id+'" name="'+product_id+'" class="productValue form-control" value="1"><div class="input-group-btn-vertical"><button class="incrementBtn btn btn-default" type="button"><i class="fa fa-caret-up">+</i></button><button class="decrementBtn btn btn-default" type="button"><i class="fa fa-caret-down">-</i></button></div></div></div><div class="col-xs-3 paddingTop"><span>'+price+'</span><b> EGP</b></div><div class="col-xs-2 paddingTop "><button type="button" name="'+product+'" class="deleteBtn btn-link">  X  </button></div></div>');
 	}
 	
 });
@@ -149,6 +151,8 @@ for (var i = 0; i < idArray.length; i++) {
 //alert(isNullProduct);
 //console.log(myString);
 //'from=' + from
+	$("#appendProducts").html('');
+	orderNotice=$("#orderNotice").text();
 		$.ajax(
 		{
 			type : 'POST',
@@ -156,9 +160,14 @@ for (var i = 0; i < idArray.length; i++) {
 			url : "ajax-files/confirmMyOrder.php" ,
 			success : function( result )
 			{
-				$("#viewConfirmOrderResult").html(result);	
+				$("#viewConfirmOrderResult").html("<div class='alert alert-success'>Order Confirmed</div>");	
+			},
+			complete : function()
+			{
+				location.href='index.php';		
 			}
 		});
+		
 			
 	//}
 });
