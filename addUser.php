@@ -56,7 +56,7 @@ if($_SESSION['type'] != '1' )
     <div class="container">
     
     
-  <?php
+ <?php
 	require_once("includes/menu.php");
 ?>
         

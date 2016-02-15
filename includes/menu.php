@@ -33,7 +33,7 @@
 				if($_SESSION['type'] == "1")
 				{
 				?>
-                <li><a href="myProducts.html">My Products</a></li>
+                <li><a href="myproducts.php">My Products</a></li>
                 <li><a href="categories.html">Categories</a></li>
                 <li><a href="rooms.php">Users</a></li>
                 <li><a href="manualOrders.html">Manual Orders</a></li>

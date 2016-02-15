@@ -77,6 +77,15 @@ class products
 			}
 			
 		}
+                
+                
+                function viewAllProduct()
+                {
+                       $db = dbConnect::getInstance();
+                       $mysqli = $db->getConnection();
+                       
+                       
+                }
 		
 		
 		

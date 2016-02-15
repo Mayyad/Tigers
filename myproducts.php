@@ -15,6 +15,7 @@ if($_SESSION['type'] != '1' )
 	header("location:index.php");
 }
 ?>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -50,45 +51,9 @@ if($_SESSION['type'] != '1' )
   <div class="container">
     
     
-    <!-- Nav Bar -->
-      <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Cafeteria</a>
-            </div>
-        
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="index.php">Home </a></li>
-                <li><a href="myOrders.php">My Orders</a></li>
-                <li><a href="myProducts.html">My Products</a></li>
-                <li><a href="categories.html">Categories</a></li>
-                <li><a href="rooms.php">Users</a></li>
-                <li><a href="manualOrders.html">Manual Orders</a></li>
-                <li><a href="checks.php">Checks</a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><img src="images/avatar_2x.png" width="50" height="50"></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mina Amir <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="setting.html">Setting</a></li>
-                    <li><a href="#">Logout</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>
-
+<?php
+	require_once("includes/menu.php");
+?>
 
      <div class="row">      
             <div class="page-header text-center">
@@ -108,7 +73,7 @@ if($_SESSION['type'] != '1' )
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    <tr >
+                                    <tr>
                                         <td> Hot <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">+</a></label></td>
                                         <td> 5 </td>
                                         <td>   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#avilabe"> Avilable </button> </td>
