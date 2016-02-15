@@ -43,7 +43,7 @@ class products
 			$db = dbConnect::getInstance();
     		 $mysqli = $db->getConnection();
 			$query = " select * from products_tb  where  status = '1'";  
-            $res = $mysqli->query($query) or die (mysqli_error($mysqli));
+            $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
 			if(mysqli_num_rows($res) > 0)
 			{
 				while($rowProduct = mysqli_fetch_array($res))
@@ -58,7 +58,6 @@ class products
                     <?php	
 				}
 			}
-			
 		}
 		
 		/************************* Return Product Info *************************/

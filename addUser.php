@@ -1,3 +1,20 @@
+<?php
+ob_start();
+session_start();
+function __autoload($name)
+{
+	include_once("files/".$name.".php");	
+}
+
+$users = new users();
+$rooms=new rooms();
+$validate = new validation();
+if(isset($_SESSION['cafeteriaSystem'])  ){
+if($_SESSION['type'] != '1' )
+{
+	header("location:index.html");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,84 +51,14 @@
   </head>
   <body>
   
-  <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span >&times;</span></button>
-            <h4 class="modal-title">Confirmation</h4>
-          </div>
-          <div class="modal-body ">
-          	<form class="form-horizontal" action="" method="POST">
-              
-                
-                <div class="control-group">
-                  <label class="control-label" for="username">Room Number</label>
-                  <div class="controls">
-                    <input id="username" name="username" placeholder="" class="form-control input-lg" type="text">
-                    <p class="help-block">Please Enter Room Number</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                	<button type="submit" class="btn btn-info ">Confirm</button>
-                </div>
-                
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div>
-
-
-
+  
 
     <div class="container">
     
     
-    <!-- Nav Bar -->
-    	<nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Cafeteria</a>
-            </div>
-        
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="index.php">Home </a></li>
-                <li><a href="myOrders.php">My Orders</a></li>
-                <li><a href="myProducts.html">My Products</a></li>
-                <li><a href="categories.html">Categories</a></li>
-                <li><a href="rooms.php">Users</a></li>
-                <li><a href="manualOrders.html">Manual Orders</a></li>
-                <li><a href="checks.php">Checks</a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><img src="images/avatar_2x.png" width="50" height="50"></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mina Amir <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="setting.html">Setting</a></li>
-                    <li><a href="#">Logout</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>
-       
-       <!-- Nav Bar End- --> 
-        
-       
+  <?php
+	require_once("includes/menu.php");
+?>
         
         <!--  <page Body  Will Change in Every Page> -->
         <div class="row">    	
@@ -120,6 +67,113 @@
             </div> 
         </div>
         
+
+	<!-- if any action Completed -->
+        <?php
+        if(isset($_GET['action']))
+        {
+        ?>
+            <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span >&times;</span></button>
+                    <h4 class="modal-title text-left">Action Complete</h4>
+                  </div>
+                  <div class="modal-body ">
+                      <div class="alert alert-success text-center"><?php echo $_GET['action'] ?></div>
+                  </div>
+                  <div class="modal-footer">
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div>
+        
+        <?php
+        }
+        ?>
+        
+        <!-- End Of The Action Complete Pop Up -->
+
+	 <!--  Insert New Room Pop Up  -->
+        <?php
+		if(isset($_GET['insRoom']))
+		{
+		?>
+        <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span >&times;</span></button>
+                <h4 class="modal-title text-left">Add New Room</h4>
+              </div>
+              <div class="modal-body ">
+				  <?php
+				  	if(isset($_POST['addRoomBtn']))
+					{
+						$roomNum=$_POST['roomNum'];
+						//Check if is not Null
+						if($validate -> checkNotNull($roomNum))
+						{
+							if($validate -> checkNumeric($roomNum))
+							{
+								if($rooms -> checkRoomNum($roomNum))
+								{
+									if($rooms -> addRoom($roomNum))
+									{
+											header("location:addUser.php?action=Insert Sucsessful Completed");
+									}
+									else
+									{
+										?>
+											<p class="alert alert-danger">Some Things Wrong in Connection With DataBase Try Again Later</p>    
+										<?php	
+									}
+								}
+								else
+								{
+									?>
+										<p class="alert alert-danger">This Room Inserted To The DataBase Befor</p>    
+									<?php	
+								}
+							}
+							else
+							{
+								?>
+                            	<p class="alert alert-danger">Room Number Must Be Number </p>    
+                                <?php	
+							}
+						}
+						else
+						{
+							?>
+                            <p class="alert alert-danger">Please Enter The Room Number</p>
+                            <?php	
+						}
+					}
+                  ?>              
+                <form class="form-horizontal" action="addUser.php?insRoom" method="POST">
+                    <div class="control-group">
+                      <label class="control-label" for="username">Room Number</label>
+                      <div class="controls">
+                        <input id="username" name="roomNum" placeholder="" class="form-control input-lg" type="text">
+                        <p class="help-block">Please Enter Room Number</p>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" name="addRoomBtn" class="btn btn-info ">Confirm</button>
+                    </div>
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div>
+        <?php
+		}
+		?>
+        <!-- End Of   Insert New Room Pop Up  -->
+
         
         <!-- All Will Write Their Code Here  -->
         <div class="container">
@@ -165,7 +219,7 @@
 
              <div class="control-group">
               <label class="control-label" for="roomNo">Room Number</label>
-              	<label class="pull-right"><a href="#" class="btn-link">Add Room</a></label>
+              	<label class="pull-right"><a href="addUser.php?insRoom" class="btn-link">Add Room</a></label>
               <div class="controls">
                 <select name="roomNo" class="form-control input-lg">
                 	<option value="0">select Room</option>
@@ -217,3 +271,11 @@
     
   </body>
 </html>
+
+<?php
+}
+else
+{
+	header("location:login.php");	
+}
+?>

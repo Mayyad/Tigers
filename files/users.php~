@@ -52,7 +52,7 @@ class users
 		{
 			$db = dbConnect::getInstance();
 	    		 $mysqli = $db->getConnection();
-			$query = " select * from rooms_tb where id = '".$roomNo."' ";  
+			$query = " select name from rooms_tb where id = '".$roomNo."' ";  
 		    	$res = $mysqli->query($query) or die (mysqli_error($mysqli));
 			if(mysqli_num_rows($res)>0)
 			{

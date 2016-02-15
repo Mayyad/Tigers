@@ -178,19 +178,7 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
             </div>
         </div>
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <!--  Untill Here -->
+    <!--  Untill Here -->
         
         
             
