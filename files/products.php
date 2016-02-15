@@ -50,13 +50,31 @@ class products
 				{
 					?>
                     <div class="col-sm-2 ">
-                        <img alt="<?php echo $rowProduct['price'] ?>"  name="<?php echo $rowProduct['name'] ?>" src="uploads/products/<?php echo $rowProduct['prod_pic'] ?>" data-toggle="tooltip" data-placement="right" title="Price : <?php echo $rowProduct['price'] ?> LE" class="img-responsive img-thumbnail prouctImage" />
+                        <img alt="<?php echo $rowProduct['price'] ?>"  name="<?php echo $rowProduct['id'] ?>" src="uploads/products/<?php echo $rowProduct['prod_pic'] ?>" data-toggle="tooltip" data-placement="right" title="Price : <?php echo $rowProduct['price'] ?> LE" class="img-responsive img-thumbnail prouctImage" />
                         <h4 class="text-center text-muted"><?php echo $rowProduct['name'] ?></h4>
                         
                         
                     </div>
                     <?php	
 				}
+			}
+			
+		}
+		
+		/************************* Return Product Info *************************/
+		function returnProductInfo($p_id)
+		{
+			$db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+			$query = " select * from products_tb  where  id = '".$p_id."'";  
+            $res = $mysqli->query($query) or die (mysqli_error($mysqli));
+			if(mysqli_num_rows($res) > 0)
+			{
+				return $res;
+			}
+			else
+			{
+				return false;
 			}
 			
 		}

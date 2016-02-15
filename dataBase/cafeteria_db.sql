@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2016 at 12:33 PM
+-- Generation Time: Feb 15, 2016 at 06:59 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -50,22 +50,24 @@ INSERT INTO `categories_tb` (`id`, `name`, `status`) VALUES
 CREATE TABLE IF NOT EXISTS `check_tb` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `u_id` int(11) NOT NULL,
-  `date` date NOT NULL,
+  `date` timestamp NOT NULL,
   `status` int(1) NOT NULL,
   `total_price` int(10) NOT NULL,
   `roomNo` int(5) NOT NULL,
+  `time` varchar(12) NOT NULL,
+  `notice` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `check_tb`
 --
 
-INSERT INTO `check_tb` (`id`, `u_id`, `date`, `status`, `total_price`, `roomNo`) VALUES
-(1, 1, '2016-02-01', 1, 100, 1),
-(2, 2, '2016-02-01', 1, 10, 1),
-(5, 1, '2016-02-12', 3, 25, 1),
-(6, 2, '2016-02-12', 3, 37, 2);
+INSERT INTO `check_tb` (`id`, `u_id`, `date`, `status`, `total_price`, `roomNo`, `time`, `notice`) VALUES
+(1, 1, '2015-02-02 22:00:00', 1, 100, 1, '', ''),
+(2, 1, '2016-01-31 22:00:00', 1, 10, 1, '', ''),
+(5, 1, '2016-02-11 22:00:00', 1, 25, 1, '', ''),
+(6, 2, '2016-02-11 22:00:00', 3, 37, 2, '1455512341', '');
 
 -- --------------------------------------------------------
 

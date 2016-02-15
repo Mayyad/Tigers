@@ -264,6 +264,27 @@ class rooms
 		}
 		
 		
+		/*************************  Select Avilable Rooms To View it on home page   *************************/
+		function selectAvilableRoom()
+		{
+			 $db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+			$query = " select * from rooms_tb   where status='1'";  
+            $res = $mysqli->query($query) or die (mysqli_error($mysqli));	
+			if($res)  
+           	{
+				return $res;  
+            }  
+            else  
+            {  
+              	return false; 
+            }  
+		}
+		
+		
+		
+		
+		
 		
 
 }  

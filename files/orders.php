@@ -38,6 +38,24 @@ class orders
 		}
 		
 		
+		/************************* Insert New Check To DataBase *************************/
+		function insertCheck($u_id , $roomNo , $notice)
+		{
+			$db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+			$query = " insert into check_tb set u_id='".$u_id."' ,roomNo ='".$roomNo."' , time='".time()."' , date=NOW() , status='3' ";  
+            $res = $mysqli->query($query) or die (mysqli_error($mysqli));
+			if($res)
+			{
+				return  $mysqli->insert_id;	
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		
 		/************************* Check For Order Number is Mine Or No on dataBase Or No *************************/
 		function checkOrderIsMine($orderNum ,$u_id)
 		{

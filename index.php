@@ -7,6 +7,7 @@ function __autoload($name)
 }
 
 $orders=new orders();
+$rooms=new rooms();
 $products=new products();
 $validate = new validation();
 if(isset($_SESSION['cafeteriaSystem'])  ){
@@ -70,60 +71,62 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
                 </div>
                 
             <!--
-            	<div class="row text-center marginBottom">
-                	<div class="col-xs-3 paddingTop">
-                    	Tea
-                    </div>
-                    <div class="col-xs-4 ">
-                    	<div class="input-group spinner">
-                            <input type="text" class="form-control" value="42">
-                            <div class="input-group-btn-vertical">
-                              <button class="btn btn-default" type="button"><i class="fa fa-caret-up">+</i></button>
-                              <button class="btn btn-default" type="button"><i class="fa fa-caret-down">-</i></button>
-                            </div>
-                          </div>
-                    </div>
-                    
-                    <div class="col-xs-3 paddingTop">
-                    	14 EGP
-                    </div>
-                    <div class="col-xs-2 paddingTop ">
-                    	<a href="" class="btn-link">  X  </a>
-                    </div>
+            	
                     
                 </div>-->
                 
                 
                 
                 <div class="row">
+                	<div id="viewConfirmOrderResult"></div>
                   <br>
                 	<div class="col-sm-12">
                     	<label>Notice </label>
                     </div>
                 	<div class="col-sm-12">	
-                		<textarea class="form-control" rows="3"></textarea>
+                		<textarea id="orderNotice" class="form-control" rows="3"></textarea>
                     </div>    
                 </div>	
                 
                 <div class="row">
                 <br>
-                	<label class="col-sm-2">RooM</label>
-                    <div class="col-sm-10">
-                    	<select class="form-control">
-                          <option>Room 1</option>
-                          <option>Ext</option>
-                        </select>
-                    </div>
+                <?php
+					if($roomsReturn = $rooms -> selectAvilableRoom())
+					{
+					?>
+                        <label class="col-sm-2">RooM</label>
+                        <div class="col-sm-10">
+                            <select id="roomNo" class="form-control">
+                              <?php
+							  while($row=mysqli_fetch_array($roomsReturn))
+							  {
+							  ?>
+                              <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+                              
+                            	<?php
+							  }
+							  ?>
+                            </select>
+                        </div>
+					<?php
+					}
+					else
+					{
+						
+					}
+					
+					?>
                 </div>
                 
                 <hr>
                 
                 <div class="row">
                 	<label id="orderSum"></label>
+                    <input type="hidden" id="userID" value="<?php echo $_SESSION['cafeteriaSystem'] ?>" >
                 </div>
                 
                 <div class="row text-right">
-                	<button type="submit"  class="btn btn-info">Confirm</button>&nbsp;&nbsp; 
+                	<button type="button"  class="btn btn-info " id="confirmMyOrderBtn">Confirm</button>&nbsp;&nbsp; 
                 </div>
                 
             </div>

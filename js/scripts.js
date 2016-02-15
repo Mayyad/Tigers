@@ -32,7 +32,7 @@ $('#viewMyOrdersBtn').click(function()
 
 
 $('.prouctImage').click(function() {
-	var product =	$(this).attr("name");
+	var product =	$(this).parent("div").children("h4").text();
 	var price =	$(this).attr("alt");
 	
 	sumOrder=parseInt(sumOrder) + parseInt(price);
@@ -43,14 +43,14 @@ $('.prouctImage').click(function() {
 		myval= myval + 1;
 		price = price * myval;
 	
-		$("#"+product +"Append").children("div").next("div").children("div").children("input").attr("value" , myval)
+		$("#"+product +"Append").children("div").next("div").children("div").children("input").attr("value" , myval);
 		$("#"+product +"Append").children("div").next("div").next("div").children("span").text(price);
 		//console.log(price + myval);
 		
 	}
 	else
 	{
-		$("#appendProducts").append('<div id="'+product+'Append" class="row text-center marginBottom "><div class="col-xs-3 paddingTop">'+product+'</div><div class="col-xs-4 "><div class="input-group spinner"><input type="text" name="'+product+'" class="form-control" value="1"><div class="input-group-btn-vertical"><button class="incrementBtn btn btn-default" type="button"><i class="fa fa-caret-up">+</i></button><button class="decrementBtn btn btn-default" type="button"><i class="fa fa-caret-down">-</i></button></div></div></div><div class="col-xs-3 paddingTop"><span>'+price+'</span><b> EGP</b></div><div class="col-xs-2 paddingTop "><button type="button" name="'+product+'" class="deleteBtn btn-link">  X  </button></div></div>');
+		$("#appendProducts").append('<div id="'+product+'Append" class="row text-center marginBottom "><div class="col-xs-3 paddingTop">'+product+'</div><div class="col-xs-4 "><div class="input-group spinner"><input disabled type="text" id="'+product+'" name="'+product+'" class="productValue form-control" value="1"><div class="input-group-btn-vertical"><button class="incrementBtn btn btn-default" type="button"><i class="fa fa-caret-up">+</i></button><button class="decrementBtn btn btn-default" type="button"><i class="fa fa-caret-down">-</i></button></div></div></div><div class="col-xs-3 paddingTop"><span>'+price+'</span><b> EGP</b></div><div class="col-xs-2 paddingTop "><button type="button" name="'+product+'" class="deleteBtn btn-link">  X  </button></div></div>');
 	}
 	
 });
@@ -75,6 +75,8 @@ var myval = parseInt($(this).parent("div").prev().val());
 	$("#orderSum").html("Your Total Order Price : "+sumOrder + " EGP");
 });
 
+
+
 $("body").on("click", ".decrementBtn", function (e) {
 var price = $(this).parent("div").parent("div").parent("div").next("div").children("span").text();
 	
@@ -95,6 +97,8 @@ var myval = parseInt($(this).parent("div").prev().val());
 });
 
 
+
+
 $("body").on("click", ".deleteBtn", function (e) {
 	var product = $(this).attr("name");
 	//alert(product);
@@ -102,6 +106,62 @@ $("body").on("click", ".deleteBtn", function (e) {
 	$("#"+product+"Append").remove();
 });
 
+
+
+
+$('#confirmMyOrderBtn').click(function()
+{
+	//alert("aaaaaaaa");
+	/*var to=$('#dateto').val();
+	var from=$('#datefrom').val();
+	if(to != "" && from != "")
+	{*/
+	//var ids=new Array();
+	//var myorderString ='';
+	//var myval=$("#appendProducts").children("div").children("div").next("div").children("div").children("input").attr("value")
+	// $("#appendProducts").find("input").each(function(){ myorderString = myorderString + this.id });
+	
+	var roomNo=$("#roomNo").val();
+	var orderNotice=$("#orderNotice").val();
+	var userID=$("#userID").val();
+	//console.log(userID);
+	
+	var idArray = [];
+$('.productValue').each(function () {
+    idArray.push(this.id);
+});
+var myString = '';
+var isNullProduct=0;
+
+for (var i = 0; i < idArray.length; i++) {
+	var arrayVal=$("#"+idArray[i]).val();
+	var myPostItem=idArray[i]+"="+arrayVal;
+	if(i == 0)
+	{
+		myString = myPostItem;
+		isNullProduct=1;
+	}
+	else
+	{
+    	myString = myString +"&"+myPostItem;
+	}
+}
+//alert(isNullProduct);
+//console.log(myString);
+//'from=' + from
+		$.ajax(
+		{
+			type : 'POST',
+			data :  myString+'&roomNo='+roomNo + '&userID='+userID+'&orderNotice='+orderNotice +'&isNullProduct='+isNullProduct ,
+			url : "ajax-files/confirmMyOrder.php" ,
+			success : function( result )
+			{
+				$("#viewConfirmOrderResult").html(result);	
+			}
+		});
+			
+	//}
+});
 
 
 
