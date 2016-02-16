@@ -6,7 +6,7 @@ function __autoload($name)
 	include_once("files/".$name.".php");	
 }
 
-$users = new users();
+$products = new products();
 $rooms=new rooms();
 $validate = new validation();
 if(isset($_SESSION['cafeteriaSystem'])  ){
@@ -72,89 +72,101 @@ if($_SESSION['type'] != '1' )
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody >
-                                    <tr>
-                                        <td> Hot <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">+</a></label></td>
-                                        <td> 5 </td>
-                                        <td>   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#avilabe"> Avilable </button> </td>
+                                <tbody>
+                                    
+                                <?php
 
-                                            <div id="avilabe" class="modal fade" role="dialog">
-                                              <div class="modal-dialog">
+                                    
+                                    $list = array ();
+                                    $list = $products->viewAllCat();
+                                    $count = count($list);
+                                    
+                                    $check = $products->unavailable(0);
+                                    //echo $count;
+                                        for ($i=0 ; $i <$count ; $i++)
+                                    {
+                                        ?>
+                                        <tr>
 
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                    <p>Are you sure to avialable this product</p>
-                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target=""> yes </button> </td>
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal"> No </button> </td>
+                                            <td> <?php echo $list[$i]; ?> <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">+</a></label></td>
+                                            <td> 5 </td>
+                                            <td>   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#avilabe"> Avilable </button> </td>
 
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                  </div>
+                                            <!-- available popup -->
+                                                    <div id="avilabe" class="modal fade" role="dialog">
+                                                      <div class="modal-dialog">
+
+                                                        <!-- Modal content-->
+
+
+                                                        <div class="modal-content">
+                                                              <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                              </div>
+                                                                  <div class="modal-body">
+                                                                <p>Are you sure to avialable this product</p>
+                                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target=""> yes </button> </td>
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal"> No </button> </td>
+
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                              </div>
+                                                        </div>
+
+                                                      </div>
+                                                    </div>
+
+                                            <td class="text-center"> <a href="#" class="btn btn-info"> Edit </a>
+                                                                     <a href="#" class="btn btn-danger"> Delete </a>  </td>
+                                        </tr>
+
+                                            <tr id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="  headingOne">
+
+                                                <?php
+
+                                                    $products_list = array();
+                                                    $products_list = $products->viewallproduct($i);
+                                                    $pro_count = count($products_list);
+
+                                                for ($y=0 ; $y < $pro_count ; $y++)
+                                                {
+                                                    ?>
+
+                                                <td  colspan="4" class="">
+                                                <div class="row text-center">   <!-- asnaaf start -->
+                                                    <div class="col-sm-2 ">
+                                                        <h4 class="text-center text-muted">
+                                                            <?php  echo $products_list[$y] ?>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div>
+                                                          <div class="col-sm-2">
+                                                            <span class="checkbox">
+                                                                <input type="checkbox">
+                                                                <label data-on="ON" data-off="OFF"></label>
+                                                            </span>
+                                                          </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                              </td>
 
-                                              </div>
-                                            </div>
+                                                <?php
+                                                }
 
-                                        <td class="text-center"> <a href="#" class="btn btn-info"> Edit </a> 
-                                                                 <a href="#" class="btn btn-danger"> Delete </a>  </td>
-                                    </tr>
+                                                ?>
 
-                                    <tr id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="  headingOne">
-                                      <td  colspan="4" class="">
-                                        <div class="row text-center">   <!-- asnaaf start -->
-                                            <div class="col-sm-2 ">
-                                                <h4 class="text-center text-muted">Tea</h4>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                    <div>
-                                                      <div class="col-sm-2">
-                                                        <span class="checkbox">
-                                                            <input type="checkbox">
-                                                            <label data-on="ON" data-off="OFF"></label>
-                                                        </span>
-                                                      </div>
-                                                    </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="row text-center">   <!-- asnaaf start -->
-                                            <div class="col-sm-2 ">
-                                                <h4 class="text-center text-muted">coffe</h4>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                    <div>
-                                                      <div class="col-sm-2">
-                                                        <span class="checkbox">
-                                                            <input type="checkbox">
-                                                            <label data-on="ON" data-off="OFF"></label>
-                                                        </span>
-                                                      </div>
-                                                    </div>
-                                            </div>
-                                        </div>
+                                            </tr>
 
-                                        <div class="row text-center">   <!-- asnaaf start -->
-                                            <div class="col-sm-2 ">
-                                                <h4 class="text-center text-muted">milk with tea</h4>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                    <div>
-                                                      <div class="col-sm-2">
-                                                        <span class="checkbox">
-                                                            <input type="checkbox">
-                                                            <label data-on="ON" data-off="OFF"></label>
-                                                        </span>
-                                                      </div>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                      </td>
-                                    </tr>
+                                    <?php
+                                    }
+
+
+                                ?>
+
 
 
                                     

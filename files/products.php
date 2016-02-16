@@ -64,9 +64,9 @@ class products
 		function returnProductInfo($p_id)
 		{
 			$db = dbConnect::getInstance();
-    		 $mysqli = $db->getConnection();
+                    	 $mysqli = $db->getConnection();
 			$query = " select * from products_tb  where  id = '".$p_id."'";  
-            $res = $mysqli->query($query) or die (mysqli_error($mysqli));
+                         $res = $mysqli->query($query) or die (mysqli_error($mysqli));
 			if($res)
 			{
 				return $res;
@@ -79,14 +79,69 @@ class products
 		}
                 
                 
-                function viewAllProduct()
+		 function viewAllCat()
+		{
+
+			$list = array();
+
+			$db = dbConnect::getInstance();
+			$mysqli = $db->getConnection();
+			$query = " select * from categories_tb ";
+			$res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+			if(mysqli_num_rows($res) > 0)
+			 {
+				 while($rowProduct = mysqli_fetch_array($res))
+				 {
+					  $name = $rowProduct['name'];
+					  array_push($list, $name);
+				 }
+					return $list ;
+			 }
+		}
+
+
+		function viewallproduct($x)
+		{
+
+			$product_List = array();
+
+			$db = dbConnect::getInstance();
+			$mysqli = $db->getConnection();
+			$query = " select * from products_tb WHERE cat_id=$x+1 ";
+			$res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+			if(mysqli_num_rows($res) > 0)
+			{
+				while($rowProduct = mysqli_fetch_array($res))
+				{
+					$name = $rowProduct['name'];
+					array_push($product_List, $name);
+				}
+				return $product_List ;
+			}
+                }            
+
+                function available($x)
                 {
-                       $db = dbConnect::getInstance();
-                       $mysqli = $db->getConnection();
-                       
-                       
+                        $db = dbConnect::getInstance();
+                        $mysqli = $db->getConnection();
+                        $query =" update categories_tb SET status ='1' where id=$x+1 ";
+                        $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+                        return true;
                 }
-		
+
+                
+                function unavailable($x)
+                {
+                        $db = dbConnect::getInstance();
+                        $mysqli = $db->getConnection();
+                        $query =" update categories_tb SET status ='0' where id=$x+1 ";
+                        $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+                        return true;
+                }
+                
+                
+
+}
 		
 		
 		
@@ -99,7 +154,7 @@ class products
 		
 		
 
-}  
+ 
 /*
 $user= new uLogin();
 $user->__set("uname" , "Mina");

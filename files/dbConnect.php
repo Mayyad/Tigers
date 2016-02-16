@@ -5,8 +5,8 @@ class dbConnect
 	private $_connection;
 	private static $_instance; //The single instance
 	private $_host = "localhost";
-	private $_username = "root";
-	private $_password = "";
+	private $_username = "ayyad";
+	private $_password = "sql";
 	private $_database = "cafeteria_db";
 	/*
 	Get an instance of the Database
