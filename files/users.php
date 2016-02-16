@@ -44,6 +44,24 @@ class users
 				return false;
 			}	
 		}
+		
+		/**********************  view All Users                           *******************/	
+	
+		function viewAllUnBlockedUsers()
+		{
+			$db = dbConnect::getInstance();
+	    		 $mysqli = $db->getConnection();
+			$query = " select * from users_tb where type = '2' ";  
+		    	$res = $mysqli->query($query) or die (mysqli_error($mysqli));
+			if(mysqli_num_rows($res)>0)
+			{
+				return $res;
+			}
+			else
+			{
+				return false;
+			}	
+		}
 
 
 		/**********************  View User Room No                           *******************/	

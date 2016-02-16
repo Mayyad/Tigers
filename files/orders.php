@@ -453,7 +453,7 @@ class orders
                                     <tr >
                                         <td><?php echo $row['timeStamp'] ?></td>
                                         <td><?php echo $rowUser['name'] ?></td>
-                                        <td><?php echo $rowUser['roomNo'] ?></td>
+                                        <td><?php if($row['roomNo'] == "0"){echo "No Room";}else{ $returnRes = mysqli_fetch_array($mysqli->query("select name from rooms_tb where id = '".$row['roomNo']."'")); echo $returnRes["name"]; } ?></td>
                                         <td><?php echo $rowUser['ext'] ?></td>
                                         <td class="text-center"> <a href="orders.php?deliver=<?php echo $row['id'] ?>" class="btn btn-info">Deliver</a> </td>
                                     </tr>

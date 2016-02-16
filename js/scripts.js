@@ -148,6 +148,9 @@ for (var i = 0; i < idArray.length; i++) {
     	myString = myString +"&"+myPostItem;
 	}
 }
+
+
+
 //alert(isNullProduct);
 //console.log(myString);
 //'from=' + from
@@ -170,6 +173,54 @@ for (var i = 0; i < idArray.length; i++) {
 		
 			
 	//}
+});
+
+
+
+$('#confirmOrderBtn').click(function()
+{
+	
+	var roomNo=$("#roomNo").val();
+	var orderNotice=$("#orderNotice").val();
+	var userID=$("#userID").val();
+	
+	var idArray = [];
+	$('.productValue').each(function () {
+		idArray.push(this.id);
+	});
+	var myString = '';
+	var isNullProduct=0;
+	
+	for (var i = 0; i < idArray.length; i++) {
+		var arrayVal=$("#"+idArray[i]).val();
+		var myPostItem=idArray[i]+"="+arrayVal;
+		if(i == 0)
+		{
+			myString = myPostItem;
+			isNullProduct=1;
+		}
+		else
+		{
+			myString = myString +"&"+myPostItem;
+		}
+	}
+
+
+	$("#appendProducts").html('');
+	orderNotice=$("#orderNotice").text();
+		$.ajax(
+		{
+			type : 'POST',
+			data :  myString+'&roomNo='+roomNo + '&userID='+userID+'&orderNotice='+orderNotice +'&isNullProduct='+isNullProduct ,
+			url : "ajax-files/confirmOrder.php" ,
+			success : function( result )
+			{
+				$("#viewConfirmOrderResult").html(result);	
+			}
+		});
+		
+			
+
 });
 
 
