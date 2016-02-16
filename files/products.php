@@ -140,6 +140,24 @@ class products
                 }
                 
                 
+                 function availableProduct($x)
+                {
+                        $db = dbConnect::getInstance();
+                        $mysqli = $db->getConnection();
+                        $query =" update products_tb SET status ='1' where id=$x+1 ";
+                        $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+                        return true;
+                }
+                
+                
+                 function unavailableProduct($x)
+                {
+                        $db = dbConnect::getInstance();
+                        $mysqli = $db->getConnection();
+                        $query =" update products_tb SET status ='0' where id=$x+1 ";
+                        $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+                        return true;
+                }
 
 }
 		
