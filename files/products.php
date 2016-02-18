@@ -171,9 +171,36 @@ class products
                     return true;
                 }
                 
+                
+                function updatePro($id,$Name,$price,$Statues,$Prod_pic,$Cat_id)
+                {
+                    $db = dbConnect::getInstance();
+                    $mysqli = $db->getConnection();
+                    $query ="UPDATE products_tb SET name='$Name' , price='$price' , status='$Statues' , prod_pic='$Prod_pic' , cat_id=$Cat_id WHERE id=$id ";
+                    $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+                    return true;
+                }
+                
+                
+                
+                function updatecat($id,$Name,$Statues)
+                {
+                    $db = dbConnect::getInstance();
+                    $mysqli = $db->getConnection();
+                    $query ="UPDATE categories_tb SET name='$Name' , status='$Statues' WHERE id=$id ";
+                    $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+                    return true;
+                }
                     
                 
-                
+                function addcat($Name)
+                {
+                    $db = dbConnect::getInstance();
+                    $mysqli = $db->getConnection();
+                    $query ="insert into categories_tb (name,status) VALUES ('$Name' ,1) ";
+                    $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+                    return true;
+                } 
 }
 		
 		

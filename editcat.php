@@ -18,36 +18,34 @@ if($_SESSION['type'] != '1' )
 
 if (isset($_POST["submit"]))
 {
-    if (!empty($_POST["proName"]))
+    if (!empty($_POST["catName"]))
     {
-       $proName = $_POST["proName"];
+       $catName = $_POST["catName"];
     }
     else 
     {
-      $proName = $_POST["tempname"];   
+      $catName = $_POST["tempname"];   
     }
     
-    if (!empty($_POST["price"]))
-    {
-       $price = $_POST["price"];
-    }
-    else 
-    {
-      $price = $_POST["tempprice"];   
-    }
-    
-    
-    $picture = $_POST["pic"];
     $id = $_POST["id"];
     $statues = $_POST["status"];
-    $catId = $_POST["catID"];
-    echo $statues;
+  
+   
     
-   $products->updatePro($id , $proName,$price,$statues, $picture,$catId);
+   $products->updatecat($id , $catName ,$statues);
    
    header("location:myproducts.php");
 }
 
+
+
+if(isset($_POST["submitt"]))
+{
+    $catname = $_POST["catName"];
+    //echo $catname;
+    $products->addcat($catname);
+    header("location:myproducts.php");
+}
 
 
 
