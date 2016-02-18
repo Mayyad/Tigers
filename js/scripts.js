@@ -219,9 +219,36 @@ $('#confirmOrderBtn').click(function()
 			}
 		});
 		
-			
+
+
+
+ 
+    
+    
 
 });
+
+
+ $('#checkava').click(function(){
+       
+       
+       if ($('#checkava').text('UnAvailable') )
+       {
+           $('#checkava').text('Available');
+           $('#checkava').attr('class','btn btn-success');
+       }
+       
+       if ($('#checkava').text('Available') )
+       {
+           $('#checkava').text('UnAvailable');
+           $('#checkava').attr('class','btn btn-danger');
+       }
+       
+       
+       console.log('ok'); 
+        
+        
+    });
 
 
 
@@ -252,3 +279,6 @@ function ordersRedirectDinamicaly(){
 
 	});
 }
+
+
+

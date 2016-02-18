@@ -90,12 +90,12 @@ class products
 			$res = $mysqli ->query($query) or die (mysqli_error($mysqli));
 			if(mysqli_num_rows($res) > 0)
 			 {
-				 while($rowProduct = mysqli_fetch_array($res))
+				/* while($rowProduct = mysqli_fetch_array($res))
 				 {
 					  $name = $rowProduct['name'];
 					  array_push($list, $name);
-				 }
-					return $list ;
+				 }*/
+					return $res ;
 			 }
 		}
 
@@ -107,18 +107,20 @@ class products
 
 			$db = dbConnect::getInstance();
 			$mysqli = $db->getConnection();
-			$query = " select * from products_tb WHERE cat_id=$x+1 ";
+			$query = " select * from products_tb WHERE cat_id=$x ";
 			$res = $mysqli ->query($query) or die (mysqli_error($mysqli));
 			if(mysqli_num_rows($res) > 0)
 			{
-				while($rowProduct = mysqli_fetch_array($res))
+				/*while($rowProduct = mysqli_fetch_array($res))
 				{
 					$name = $rowProduct['name'];
 					array_push($product_List, $name);
-				}
-				return $product_List ;
+				} */
+				return $res ;
 			}
-                }            
+        }            
+
+
 
                 function available($x)
                 {
@@ -144,7 +146,7 @@ class products
                 {
                         $db = dbConnect::getInstance();
                         $mysqli = $db->getConnection();
-                        $query =" update products_tb SET status ='1' where id=$x+1 ";
+                        $query =" update products_tb SET status ='1' where id=$x ";
                         $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
                         return true;
                 }
@@ -154,7 +156,7 @@ class products
                 {
                         $db = dbConnect::getInstance();
                         $mysqli = $db->getConnection();
-                        $query =" update products_tb SET status ='0' where id=$x+1 ";
+                        $query =" update products_tb SET status ='0' where id=$x ";
                         $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
                         return true;
                 }

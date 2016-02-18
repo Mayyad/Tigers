@@ -81,31 +81,30 @@ if($_SESSION['type'] != '1' )
                                     $list = $products->viewAllCat();
                                     $count = count($list);
                                     
-                                    $check = $products->unavailable(0);
                                     //echo $count;
-                                        for ($i=0 ; $i <$count ; $i++)
+                                        while ($row=mysqli_fetch_array($list))
                                     {
                                         ?>
                                         <tr>
 
-                                            <td> <?php echo $list[$i]; ?> <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">+</a></label></td>
-                                            <td> 5 </td>
-                                            <td>   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#avilabe"> Avilable </button> </td>
+                                            <td> <?php echo $row["name"]; ?> <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $row['id']; ?>" aria-expanded="true" aria-controls="collapse<?php echo $row['id']; ?>">+</a></label></td>
 
+                                            <td> 5 </td>
+
+                                            <td> <?php if($row['status'] == "1"){ ?>  <button id="checkava" type="button" class="btn btn-success" > Available </button> <?php } else{?> <button id="checkava" type="button" class="btn btn-success" > UnAvailable </button> <?php } ?> </td>
+                                                    
                                             <!-- available popup -->
-                                                    <div id="avilabe" class="modal fade" role="dialog">
+<!--                                                      <div id="available" class="modal fade" role="dialog">
                                                       <div class="modal-dialog">
 
-                                                        <!-- Modal content-->
-
-
-                                                        <div class="modal-content">
+                                                         Modal content
+                                                            <div class="modal-content">
                                                               <div class="modal-header">
                                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                               </div>
                                                                   <div class="modal-body">
                                                                 <p>Are you sure to avialable this product</p>
-                                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target=""> yes </button> </td>
+                                                                <button type="button" class="btn btn-success" data-toggle="modal"> yes </button> </td>
                                                                 <button type="button" class="btn btn-danger" data-dismiss="modal"> No </button> </td>
 
                                                               </div>
@@ -115,29 +114,29 @@ if($_SESSION['type'] != '1' )
                                                         </div>
 
                                                       </div>
-                                                    </div>
+                                                    </div> -->
 
                                             <td class="text-center"> <a href="#" class="btn btn-info"> Edit </a>
-                                                                     <a href="#" class="btn btn-danger"> Delete </a>  </td>
+                                            </td>
                                         </tr>
 
-                                            <tr id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="  headingOne">
-
+                                            <tr id="collapse<?php echo $row['id']; ?>" class="panel-collapse collapse " role="tabpanel" aria-labelledby="  headingOne">
+                                            <td  colspan="4" class="">
                                                 <?php
 
                                                     $products_list = array();
-                                                    $products_list = $products->viewallproduct($i);
+                                                    $products_list = $products->viewallproduct($row['id']);
                                                     $pro_count = count($products_list);
 
-                                                for ($y=0 ; $y < $pro_count ; $y++)
+                                                while($pro=mysqli_fetch_array($products_list))
                                                 {
                                                     ?>
 
-                                                <td  colspan="4" class="">
+                                                
                                                 <div class="row text-center">   <!-- asnaaf start -->
                                                     <div class="col-sm-2 ">
                                                         <h4 class="text-center text-muted">
-                                                            <?php  echo $products_list[$y] ?>
+                                                            <?php  echo $pro["name"] ?>
                                                         </h4>
                                                     </div>
                                                     <div class="col-sm-5">
@@ -150,14 +149,14 @@ if($_SESSION['type'] != '1' )
                                                           </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                              </td>
-
+                                                    </div>
+                                                
+                                                <br>
                                                 <?php
                                                 }
 
                                                 ?>
-
+</td>
 
                                             </tr>
 
