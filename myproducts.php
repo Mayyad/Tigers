@@ -62,117 +62,160 @@ if($_SESSION['type'] != '1' )
       </div>   
 
 
-       <div class="row table-responsive">
-                            <table class="table table-bordered table-hover">
-                                <thead >
-                                    <tr class="info ">
-                                        <th>Name </th>
-                                        <th>Number of brands</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                <?php
+ <div class="row table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead >
+            <tr class="info ">
+                <th>Name </th>
+                <th>Number of brands</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
 
-                                    
-                                    $list = array ();
-                                    $list = $products->viewAllCat();
-                                    $count = count($list);
-                                    
-                                    //echo $count;
-                                        while ($row=mysqli_fetch_array($list))
-                                    {
-                                        ?>
-                                        <tr>
+        <?php
 
-                                            <td> <?php echo $row["name"]; ?> <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $row['id']; ?>" aria-expanded="true" aria-controls="collapse<?php echo $row['id']; ?>">+</a></label></td>
 
-                                            <td> 5 </td>
+            $list = array ();
+            $list = $products->viewAllCat();
 
-                                            <td> <?php if($row['status'] == "1"){ ?>  <button id="checkava" type="button" class="btn btn-success" > Available </button> <?php } else{?> <button id="checkava" type="button" class="btn btn-success" > UnAvailable </button> <?php } ?> </td>
-                                                    
-                                            <!-- available popup -->
-<!--                                                      <div id="available" class="modal fade" role="dialog">
-                                                      <div class="modal-dialog">
 
-                                                         Modal content
-                                                            <div class="modal-content">
-                                                              <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                              </div>
-                                                                  <div class="modal-body">
-                                                                <p>Are you sure to avialable this product</p>
-                                                                <button type="button" class="btn btn-success" data-toggle="modal"> yes </button> </td>
-                                                                <button type="button" class="btn btn-danger" data-dismiss="modal"> No </button> </td>
+                while ($row=mysqli_fetch_array($list))
+            {
+                ?>
+                <tr>
 
-                                                              </div>
-                                                              <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                              </div>
-                                                        </div>
+                    <td> <?php echo $row["name"]; ?> <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $row['id']; ?>" aria-expanded="true" aria-controls="collapse<?php echo $row['id']; ?>">+</a></label></td>
 
-                                                      </div>
-                                                    </div> -->
+                    <td> 5 </td>
 
-                                            <td class="text-center"> <a href="#" class="btn btn-info"> Edit </a>
-                                            </td>
-                                        </tr>
+                    <td> <?php if($row['status'] == "1"){ ?>  <button id="checkava" type="button" class="btn btn-success" > Available </button> <?php } else{?> <button id="checkava" type="button" class="btn btn-success" > UnAvailable </button> <?php } ?> </td>
 
-                                            <tr id="collapse<?php echo $row['id']; ?>" class="panel-collapse collapse " role="tabpanel" aria-labelledby="  headingOne">
-                                            <td  colspan="4" class="">
-                                                <?php
+                    <td class="text-center"> <a href="#" class="btn btn-info"> Edit </a>
+                    </td>
+                </tr>
 
-                                                    $products_list = array();
-                                                    $products_list = $products->viewallproduct($row['id']);
-                                                    $pro_count = count($products_list);
+                <tr id="collapse<?php echo $row['id']; ?>" class="panel-collapse collapse " role="tabpanel" aria-labelledby="  headingOne">
+                    <td  colspan="4" class="">
+                        <?php
 
-                                                while($pro=mysqli_fetch_array($products_list))
-                                                {
-                                                    ?>
+                            $products_list = array();
+                            $products_list = $products->viewallproduct($row['id']);
+                            $pro_count = count($products_list);
 
-                                                
-                                                <div class="row text-center">   <!-- asnaaf start -->
-                                                    <div class="col-sm-2 ">
-                                                        <h4 class="text-center text-muted">
-                                                            <?php  echo $pro["name"] ?>
-                                                        </h4>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                        <div>
-                                                          <div class="col-sm-2">
-                                                            <span class="checkbox">
-                                                                <input type="checkbox">
-                                                                <label data-on="ON" data-off="OFF"></label>
-                                                            </span>
-                                                          </div>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                
+                        while($pro=mysqli_fetch_array($products_list))
+                        {
+                            ?>
+
+                        <div class="row text-center">   <!-- asnaaf start -->
+                            <div class="col-sm-2 ">
+                                <h4 class="text-center text-muted">
+                                    <?php  echo $pro["name"] ?>
+                                </h4>
+                            </div>
+                            <div class="col-sm-2">
+                                <div>
+                                  <div class="col-sm-2">
+                                    <span class="checkbox">
+                                        <input type="checkbox">
+                                        <label onclick="" data-on="ON" data-off="OFF"></label>
+                                    </span>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                             <a class="btn btn-info" href="#edtpro<?PHP echo $pro["id"];?>" data-toggle="modal" > Edit </a>
+                            </div>
+                         </div>
+                        
+                        
+                        <!--Edit product Popup -->
+                         <div id="edtpro<?PHP echo $pro["id"];?>"  class="modal fade" role="dialog" >
+                             <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form" action="editpro.php" method="POST">
+                                            <div class="form-group">
+                                                <label for="proName"> Product Name </label>
+                                                <input type="text" class="form-control" name="proName" placeholder="<?PHP echo $pro['name'];?>" >
+                                                <label for="price"> Price </label>
+                                                <input type="text" class="form-control" name="price" placeholder="<?PHP echo $pro['price'];?> L.E">
+                                               
+                                                <label for="proName"> Product Picture </label>
+                                                <input type="file" class="form-control" name="pic">
                                                 <br>
-                                                <?php
-                                                }
-
-                                                ?>
-</td>
-
-                                            </tr>
-
-                                    <?php
-                                    }
-
-
-                                ?>
-
-
-
-                                    
-                                </tbody>
-                
-                            </table>
+                                                <input type="hidden" class="form-control" name="catID" value="<?PHP echo $row["id"];?>" >
+                                                <input type="submit" class="btn btn-success form-control" value="Change" name="submit" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                         <!--End of Edit product popup -->
+                        
+                        <?php } ?>
+                        <div>
+                            <a class="btn btn-info btn-block" href="#adprdct<?PHP echo $row["id"];?>" data-toggle="modal" > Add Product </a>
+                        </div
+                        
+                         <!--Add Product PopUp -->
+                        <div id="adprdct<?PHP echo $row["id"];?>" class="modal fade" role="dialog" > <!--Add Product PopUp --> 
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form" action="validateproduct.php" method="POST">
+                                            <div class="form-group">
+                                                <label for="proName"> Product Name </label>
+                                                <input type="text" class="form-control" name="proName">
+                                                <label for="price"> Price </label>
+                                                <input type="text" class="form-control" name="price">
+                                                <label for="proName"> Statues </label>
+                                                <select class="form-control" name="statues">
+                                                    <option value="1"> Available </option>
+                                                    <option value="0"> Unavailable </option>
+                                                </select>
+                                                <label for="proName"> Product Picture </label>
+                                                <input type="file" class="form-control" name="pic">
+                                                <br>
+                                                <input type="hidden" class="form-control" name="catID" value="<?PHP echo $row["id"];?>" >
+                                                <input type="submit" class="btn btn-success form-control" value="Add" name="submit" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                         <!-- End of add product popup -->
+                         
+                         
+                         
+                         
+                    </td>
+                </tr>
+
+            <?php } ?>
+
+
+
+
+        </tbody>
+
+    </table>
+ </div>
 
 
   

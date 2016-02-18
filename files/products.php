@@ -118,7 +118,7 @@ class products
 				} */
 				return $res ;
 			}
-        }            
+                }            
 
 
 
@@ -161,6 +161,19 @@ class products
                         return true;
                 }
 
+                
+                function AddPro($Name,$price,$Statues,$Prod_pic,$Cat_id)
+                {
+                    $db = dbConnect::getInstance();
+                    $mysqli = $db->getConnection();
+                    $query ="insert into products_tb (name,price,status,prod_pic,cat_id) VALUES ('$Name','$price','$Statues','$Prod_pic','$Cat_id') ";
+                    $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+                    return true;
+                }
+                
+                    
+                
+                
 }
 		
 		

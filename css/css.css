@@ -73,6 +73,9 @@
   left: 4px;
 }
 
+
+
+
 /* product */ 
 
 body {
@@ -163,9 +166,6 @@ body {
 
 .checkbox input:checked + label {
   margin-left:29px;
-  /* green when 'on' 
-  background-color: #429f21;
-  */
   
   /* blue when 'on' */
   background-color: #0088cc;
