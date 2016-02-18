@@ -22,7 +22,7 @@ if($_SESSION['type'] != '1' )
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>BootStrap</title>
+    <title>Setting</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     
     
@@ -50,54 +50,52 @@ if($_SESSION['type'] != '1' )
     <![endif]-->
   </head>
   <body>
-  
-  
+  <?php
+  if(!isset($_GET['Done']) and !isset($_GET['edit']))
+  {
+		header("location:index.php");  
+  }
+  	if(isset($_GET['Done']))
+	{
+		
+		
+  ?>
+  <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span >&times;</span></button>
+            <h4 class="modal-title">Confirmation</h4>
+          </div>
+          <div class="modal-body ">
+          	<div class="alert alert-success">user Information Updated Successfully</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <a type="button" class="btn btn-primary" href="index.php" >Back To Admin Panel</a>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+<?php
+	}
+		  if(isset($_GET['edit']) )
+				  {
+					  $u_id=$_GET['edit'];
+					  if(trim($u_id) != "")
+					  {
+						  if(is_numeric($u_id))
+						  {
+				  				
+				  ?>
 
     <div class="container">
-    
-    
- <?php
-	require_once("includes/menu.php");
-?>
-        
-        <!--  <page Body  Will Change in Every Page> -->
-        <div class="row">    	
-            <div class="page-header text-center">
-                <h3>Add User</h3>
-            </div> 
-        </div>
-        
-
-	<!-- if any action Completed -->
-        <?php
-        if(isset($_GET['action']))
-        {
-        ?>
-            <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span >&times;</span></button>
-                    <h4 class="modal-title text-left">Action Complete</h4>
-                  </div>
-                  <div class="modal-body ">
-                      <div class="alert alert-success text-center"><?php echo $_GET['action'] ?></div>
-                  </div>
-                  <div class="modal-footer">
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div>
-        
-        <?php
-        }
-        ?>
-        
-        <!-- End Of The Action Complete Pop Up -->
-
-	 <!--  Insert New Room Pop Up  -->
-        <?php
-		if(isset($_GET['insRoom']))
+    	<?php
+			require_once("includes/menu.php");
+		 
+		 
+		 if(isset($_GET['insRoom']))
 		{
 		?>
         <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -172,112 +170,96 @@ if($_SESSION['type'] != '1' )
         <?php
 		}
 		?>
-        <!-- End Of   Insert New Room Pop Up  -->
-
+       
         
-        <!-- All Will Write Their Code Here  -->
+        <!--  <page Body  Will Change in Every Page> -->
+        <div class="row">    	
+                 
+         <!-- All Will Write Their Code Here  -->
         <div class="container">
   <div class="row">
-  	<div class="col-md-12">
+  	<div class="col-sm-12">
     		<?php
-	if(isset($_POST['save_btn']))
-				{
-					$name=$_POST['name'];
-					$roomNo=$_POST['roomNo'];
-					$ext=$_POST['ext'];
-					$mail=$_POST['mail'];
-					$password=$_POST['password'];
-					$cpassword=$_POST['password_confirm'];
-					#Check For Gender Exist  Or No
-					if(isset($_POST['ugender'] ) )
-					{
-						$gender=	$_POST['ugender'];
-					}
-					else
-					{
-						$gender='';	
-					}
-					//echo strlen($fname);
-					
-					if(trim($name) != "" and trim($roomNo) != "" and trim($ext) != "" and trim($mail) != "" and trim($password) != "" and trim($cpassword) != ""  )
-					{
+			
+			
+			
 						
-							if ($validate->checkMail($mail)) {
-									if($validate -> checkEqual($password , $cpassword))
-									{
-										
-											if(! $validate -> isUserExist($mail))
-											{
-												
-												
-												if(isset($_FILES["myfile"]))
-												{
-													if($validate->checkImage())
-													{	
-														$pic_name=time()."_".$_FILES["myfile"]["name"];
-														move_uploaded_file($_FILES["myfile"]["tmp_name"], "uploads/users/".$pic_name);
-														$putValue=$users -> regist($name , $mail, $ext,  $pic_name , $password, $roomNo);
-														if($putValue)
-														{
-															echo "Insert Complete";
-															header("location:addUser.php?action=New User Added To Our DataBase");
-														}
-														else
-														{
-															echo "<div class='alert alert-danger '>Some Thing Wrong happen please Try Again Later</div>";	
-														}
-													}
-													else
-													{
-														echo "<div class='alert alert-danger '>Invalied Picture</div>";	
-													}
-
-												}else
-												{
-													echo "<div class='alert alert-danger '>No Pics Found</div>";
-												}	
-											}
-											else
-											{
-												echo "<div class='alert alert-danger '>This Email Entered Befor</div>";
-											}
-										
-									}
-									else
-									{
-										?>
-							<p class="alert alert-danger w text-center">
-						   <?php echo "<div class='alert alert-danger '>Password and Confirm Password Doesn't Match</div>";?>
-							</p>	
-							<?php	
-									}
-								}
-								else
-								{
-									echo "Invalied Email";
-								}
+						
+						
+			if(mysqli_num_rows($users -> getUserInfoById($u_id)) == "1")
+			{
+				$rowUser=mysqli_fetch_array($users -> getUserInfoById($u_id));
+				
+				
+				if(isset($_POST['save_btn']))
+						{
+							$name=$_POST['name'];
+							$ext=$_POST['ext'];
+							$roomNo=$_POST['roomNo'];
+							$serverpass=$rowUser['pass'];
+							$oldpassword=$_POST['oldPassword'];
+							$newpassword=$_POST['newPassword'];
+							$password=$rowUser['pass'];
+							$pic_name=$rowUser['pic_path'];
 							
-					}
-					else
-					{
-						?>
-						<p class="alert alert-danger w text-center">
-					   <?php echo "Please Complete Your Data First";?>
-						</p>	
-						<?php
-					}
-					
-					
-				}
+							
+							
+							if(trim($name) != "" and trim($ext) != "" and trim($roomNo) != "0" )
+							{
+								if(isset($oldpassword))
+								{
+										if($validate->checkNotNull($oldpassword) and $validate->checkNotNull($newpassword) )
+										{
+											if($validate->checkEqual(md5($oldpassword),$serverpass))
+											{
+												$password=md5($newpassword);	
+											}					
+										}									
+								 }
+								
+										
+								if(isset($_FILES["myfile"]))
+								{
+									if($validate->checkImage())
+									{          
+										unlink("uploads/users/".$rowUser['pic_path']);
+										$pic_name=time()."_".$_FILES["myfile"]["name"];
+										move_uploaded_file($_FILES["myfile"]["tmp_name"], "uploads/users/".$pic_name);													
+									}
+
+
+										$putValue=$users -> updateUser($name , $ext, $roomNo,  $pic_name, $password , $u_id);
+										if($putValue)
+										{
+											header("location:editUser.php?edit=".$u_id."&Done");
+										}
+										else
+										{
+											echo "Some Thing Wrong happen please Try Again Later";	
+										}
+								}
+								
+							}
+							else
+							{
+								?>
+								<p class="alert alert-danger w text-center">
+                               <?php echo "Please Complete Your Data First";?>
+                                </p>	
+								<?php
+                            }
+							
+							
+						}
+				
 			?>
-    
-          <form class="form-horizontal" action="addUser.php" enctype="multipart/form-data" method="POST">
+            <form class="form-horizontal" action="editUser.php?edit=<?php echo $u_id ?>" enctype="multipart/form-data" method="POST">
           <fieldset>
             
             <div class="control-group">
               <label class="control-label" for="username">Username</label>
               <div class="controls">
-                <input id="username" name="name" placeholder="" class="form-control input-lg" type="text">
+                <input id="username" name="name" placeholder="" value="<?php echo $rowUser['name'] ?>" class="form-control input-lg" type="text">
                 <p class="help-block">Please Enter Your Name</p>
               </div>
             </div>
@@ -285,29 +267,28 @@ if($_SESSION['type'] != '1' )
             <div class="control-group">
               <label class="control-label" for="email">E-mail</label>
               <div class="controls">
-                <input id="email" name="mail" placeholder="" class="form-control input-lg" type="email">
+                <input id="email" name="mail" placeholder="" value="<?php echo $rowUser['mail'] ?>" class="form-control input-lg" type="email">
                 <p class="help-block">Please provide your E-mail</p>
               </div>
             </div>
-         
+         	
+            
             <div class="control-group">
-              <label class="control-label" for="password">Password</label>
+              <label class="control-label" for="password">Password (old)</label>
               <div class="controls">
-                <input id="password" name="password" placeholder="" class="form-control input-lg" type="password">
-                <p class="help-block">Password should be at least 6 characters</p>
+                <input id="password" name="oldPassword" placeholder="" class="form-control input-lg" type="password">
+                <p class="help-block">Enter ur Old Password if u wanna to change the password</p>
               </div>
             </div>
          
             <div class="control-group">
-              <label class="control-label" for="password_confirm">Password (Confirm)</label>
+              <label class="control-label" for="password_confirm">Password (new)</label>
               <div class="controls">
-                <input id="password_confirm" name="password_confirm" placeholder="" class="form-control input-lg" type="password">
-                <p class="help-block">Please confirm password</p>
+                <input id="password_confirm" name="newPassword" placeholder="" class="form-control input-lg" type="password">
+                <p class="help-block">Enter Your New Password</p>
               </div>
             </div>
-
-
-
+            
              <div class="control-group">
               <label class="control-label" for="roomNo">Room Number</label>
               	<label class="pull-right"><a href="addUser.php?insRoom" class="btn-link">Add Room</a></label>
@@ -321,7 +302,7 @@ if($_SESSION['type'] != '1' )
 							  while($row=mysqli_fetch_array($roomsReturn))
 							  {
 							  ?>
-                              <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+                              <option <?php if($rowUser['roomNo'] == $row['id']){  echo "selected"; } ?> value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
                               
                             	<?php
 							  }
@@ -343,7 +324,7 @@ if($_SESSION['type'] != '1' )
       <div class="control-group">
               <label class="control-label" for="ext">Ext</label>
               <div class="controls">
-                <input id="Room" name="ext" placeholder="ex:1024.1" class="form-control input-lg" type="ext">
+                <input id="Room" name="ext" placeholder="ex:1024.1" value="<?php echo $rowUser['ext'] ?>" class="form-control input-lg" type="ext">
               </div>
             </div>
 
@@ -362,7 +343,17 @@ if($_SESSION['type'] != '1' )
             </div>
           </fieldset>
         </form>
-        </div>
+        
+        	<?php
+			}
+			else
+			{
+				?>
+                <div class="alert alert-danger">No user Found With This DataBase</div>
+                <?php	
+			}
+			?>
+    </div>
    </div>
         
          <div class="row">
@@ -373,7 +364,20 @@ if($_SESSION['type'] != '1' )
             </div>
         </div>
 </div>
-     
+     	<?php
+						  }						  
+						  else
+						  {
+							  header("location:home.php");
+						  }
+					  }
+					  else
+					  {
+						  header("location:home.php");
+					  }
+				  }
+				  
+				  ?>
     
     
   </body>
