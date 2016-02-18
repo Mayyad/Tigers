@@ -43,8 +43,10 @@ $orders = new orders();
 								
 						}
 					}
-					$orders->updateOrder($returnRow , $totalAmount ,"index.php");
-					?><script>location.href='index.php';</script><?php
+					$orders->updateOrder($returnRow , $totalAmount ,"index.php?action=Order Confirmed");
+					
+					
+					
 				}
 				else
 				{

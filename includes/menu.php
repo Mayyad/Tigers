@@ -35,7 +35,7 @@
 				?>
                 <li><a href="myproducts.php">My Products</a></li>
                 <li><a href="categories.html">Categories</a></li>
-                <li><a href="rooms.php">Users</a></li>
+                <li><a href="users.php">Users</a></li>
                 <li><a href="manualOrders.php">Manual Orders</a></li>
                 <li><a href="checks.php">Checks</a></li>
                 <?php

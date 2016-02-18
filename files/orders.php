@@ -82,7 +82,9 @@ class orders
             $res = $mysqli->query($query) or die (mysqli_error($mysqli));
 			if($res)
 			{
-				header("location:".$path."");	
+				?>
+                <div class="alert alert-info">Order Confirmed</div>
+                <?php	
 			}
 			else
 			{

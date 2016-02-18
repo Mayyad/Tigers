@@ -7,6 +7,7 @@ function __autoload($name)
 }
 
 $users = new users();
+$orders= new orders();
 $validate = new validation();
 if(isset($_SESSION['cafeteriaSystem'])  ){
 if($_SESSION['type'] != '1' )
@@ -71,6 +72,46 @@ margin-top:10px ;
 <div class="row table-responsive">
 	
 	<?php
+	
+	if(isset($_GET['del_id']))
+				{
+					$del_id=$_GET['del_id'];
+					
+					
+					if($validate->checkNotNull($del_id))
+					{
+						if($validate -> checkNumeric($del_id))
+						{
+							if($validate -> checkID($del_id))
+							{
+								if($orders -> checkFoundOrdersForId($del_id))
+								{
+									?><div class="alert alert-danger text-center">Cannot Delete This User Becous he already Get  Orders</div><?php
+									
+								}
+								else
+								{
+										$users->delete($del_id);
+								}
+								
+							}
+							else
+							{
+								echo "No User Found With This Data";	
+							}
+						}
+						else
+						{
+							header("location:home.php");	
+						}
+					}
+					else
+					{
+						header("location:home.php");	
+					}
+				}
+	
+	
 		if($returnUsers = $users -> viewAllUsers())
 		{
 			?>
@@ -93,9 +134,9 @@ margin-top:10px ;
 		<tr >
 <td><?php echo $rowUsers['name'] ?> <label class=" pull-right"></label></td>
 <td><?php $users->getMyRoom($rowUsers['roomNo']); ?></td>
-<td><img src="uploads/users/<?php echo $rowUsers['pic_path'] ?>" class="img-responsive"></td>
+<td width="20%"><img  src="uploads/users/<?php echo $rowUsers['pic_path'] ?>" class="img-responsive"></td>
 <td><?php echo $rowUsers['ext'] ?></td>
-<td class="text-center"> <a href="editUser.php?edit=<?php echo $rowUsers['id'] ?>" class="btn btn-info">Edit</a>&nbsp;&nbsp; <a href="users.php?delete=<?php echo $rowUsers['id'] ?>" class="btn btn-info">Delete</a></td> </td>
+<td class="text-center"> <a href="editUser.php?edit=<?php echo $rowUsers['id'] ?>" class="btn btn-info">Edit</a>&nbsp;&nbsp; <a href="users.php?del_id=<?php echo $rowUsers['id'] ?>" class="btn btn-info">Delete</a></td> </td>
 </tr>
 <?php
 	}

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2016 at 05:48 AM
+-- Generation Time: Feb 17, 2016 at 06:13 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `categories_tb` (
 --
 
 INSERT INTO `categories_tb` (`id`, `name`, `status`) VALUES
-(1, 'Hot Drinks', 1),
+(1, 'Hot Drinks', 0),
 (2, 'Cold Drinks', 1);
 
 -- --------------------------------------------------------
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `rooms_tb` (
   `name` varchar(255) NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `rooms_tb`
@@ -148,7 +148,8 @@ CREATE TABLE IF NOT EXISTS `rooms_tb` (
 INSERT INTO `rooms_tb` (`id`, `name`, `status`) VALUES
 (1, '2001', 1),
 (3, '3015', 1),
-(4, '1003', 0);
+(4, '1003', 0),
+(5, '1001', 1);
 
 -- --------------------------------------------------------
 
@@ -166,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `users_tb` (
   `pic_path` varchar(255) NOT NULL,
   `type` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `users_tb`
@@ -175,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `users_tb` (
 INSERT INTO `users_tb` (`id`, `name`, `pass`, `mail`, `roomNo`, `ext`, `pic_path`, `type`) VALUES
 (1, 'Mina', '202cb962ac59075b964b07152d234b70', 'eng.mina23@gmail.com', 1, 2257172, '1.png', 1),
 (2, 'M.Ayad', '202cb962ac59075b964b07152d234b70', 'ayad@gmail.com', 3, 2215487, '2.png', 2),
-(3, 'Blocked User', '202cb962ac59075b964b07152d234b70', 'block@gmail.com', 1, 1000367976, '3.png', 2);
+(3, 'Ahmed', '202cb962ac59075b964b07152d234b70', 'block@gmail.com', 1, 1000367976, '3.png', 2);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
