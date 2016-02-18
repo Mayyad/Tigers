@@ -100,12 +100,15 @@ var myval = parseInt($(this).parent("div").prev().val());
 
 
 
-
 $("body").on("click", ".deleteBtn", function (e) {
 	var product = $(this).attr("name");
-	//alert(product);
+	var price = parseInt($(this).parent("div").prev("div").children("span").text());
+	//var total= parseInt($("#orderSum").text());
+	sumOrder = parseInt(sumOrder) - price;
+	$("#orderSum").html("Your Total Order Price : "+sumOrder + " EGP");
 	//$(this).parent("div").remove();
 	$("#"+product+"Append").remove();
+	
 });
 
 
@@ -136,6 +139,7 @@ var myString = '';
 var isNullProduct=0;
 
 for (var i = 0; i < idArray.length; i++) {
+	
 	var arrayVal=$("#"+idArray[i]).val();
 	var myPostItem=idArray[i]+"="+arrayVal;
 	if(i == 0)
@@ -151,10 +155,8 @@ for (var i = 0; i < idArray.length; i++) {
 
 
 
-//alert(isNullProduct);
-//console.log(myString);
-//'from=' + from
 	$("#appendProducts").html('');
+	$("#orderSum").html('');
 	orderNotice=$("#orderNotice").text();
 		$.ajax(
 		{
@@ -163,17 +165,35 @@ for (var i = 0; i < idArray.length; i++) {
 			url : "ajax-files/confirmMyOrder.php" ,
 			success : function( result )
 			{
-				$("#viewConfirmOrderResult").html("<div class='alert alert-success'>Order Confirmed</div>");	
+				$("#viewConfirmOrderResult").html(result);
+				viewMyRecentOrders();	
+				
 			},
 			complete : function()
 			{
-				location.href='index.php';		
+				//location.href='index.php';		
 			}
 		});
 		
 			
 	//}
 });
+
+
+function viewMyRecentOrders()
+{
+	$.ajax(
+		{
+			type : 'POST',
+			url : "ajax-files/viewMyLastOrder.php" ,
+			success : function( result )
+			{
+				$("#viewMyLastOrder").html(result);				
+			}
+			
+		});	
+}
+
 
 
 
@@ -207,6 +227,7 @@ $('#confirmOrderBtn').click(function()
 
 
 	$("#appendProducts").html('');
+	$("#orderSum").html('');
 	orderNotice=$("#orderNotice").text();
 		$.ajax(
 		{

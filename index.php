@@ -135,7 +135,7 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
             	<div class="row">
                 	<div class="col-sm-12">
                     	<h3 class="page-header">Latest Order</h3>
-                        <div class="row">
+                        <div class="row " id="viewMyLastOrder">
                         	<?php
 								if($orders -> checkFoundOrdersForId($_SESSION['cafeteriaSystem']))
 								{
