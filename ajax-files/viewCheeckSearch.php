@@ -1,15 +1,20 @@
 <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
 <script> 
-$('#resetMyOrdersPageBtn').click(function()
+$('#resetAllChecksPageBtn').click(function()
 {
+	
+	$('#userID option:eq(0)').prop('selected', true);
+	$("#dateto").val('');
+	$("#datefrom").val('');
+	
 	$.ajax(
 	{
 		type : 'POST',
-		url : "ajax-files/viewMyOrdersReset.php" ,
+		url : "ajax-files/viewAllCheckReset.php" ,
 		success : function( result )
 		{
-			$("#viewMyOrdersSearchView").html(result);	
+			$("#viewCheeckSearchResult").html(result);	
 		}
 	});
 });
@@ -55,7 +60,7 @@ $('#resetMyOrdersPageBtn').click(function()
 	}
 
 	?>
-    <button type="button" class="btn btn-info btn-block"  id="resetMyOrdersPageBtn">Review All Orders</button>
+    <button type="button" class="btn btn-info btn-block"  id="resetAllChecksPageBtn">Review All Checks</button>
     	<?php
     if($searchUser != '')
     {

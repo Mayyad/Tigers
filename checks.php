@@ -103,11 +103,11 @@ if($_SESSION['type'] != '1' )
                   </div>
                   <div class="form-group">
                     <label for="datefrom">From</label>
-                    <input type="text" class="form-control" id="datefrom" placeholder="YYYY-MM-DD">
+                    <input type="text" class="form-control" id="datefrom" value="" placeholder="YYYY-MM-DD">
                   </div>
                   <div class="form-group">
                     <label for="dateto">To</label>
-                    <input type="text" class="form-control" id="dateto" placeholder=" YYYY-MM-DD">
+                    <input type="text" class="form-control" id="dateto" value="" placeholder=" YYYY-MM-DD">
                   </div>
                   <button type="button" class="btn btn-default" id="viewCheckBtn">Search</button>
                 </form>
