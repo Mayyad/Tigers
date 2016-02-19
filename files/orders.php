@@ -569,6 +569,68 @@ class orders
 			
 				
 		}
+
+
+
+
+
+		/************************* View All Checks For All Users Orders Entered  Search  To DataBase *************************/
+		function viewAllChecksSearch( $userSearch , $searchDate )
+		{
+			 $db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+			$userQuery = " select * from users_tb ".$userSearch." ";  
+            $userRes = $mysqli->query($userQuery) or die (mysqli_error($mysqli));	
+			if(mysqli_num_rows($userRes) > 0)  
+           	{	
+			?>
+            	<table class="table table-bordered table-hover">
+                    <thead >
+                        <tr class="info ">
+                            <th>Name </th>
+                            <th width="20%">amount</th>
+                        </tr>
+                    </thead>
+                    <tbody  class="text-left">
+                        <?php
+                        while($rowUser=mysqli_fetch_array($userRes))
+                        {
+								
+							?>
+                            <!-- Users Name With Details -->
+                                <tr >
+                                    <td >  <label class=" pull-left"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $rowUser['id'] ?>" aria-expanded="true" aria-controls="collapse<?php echo $rowUser['id'] ?>">+</a></label>&nbsp; <?php echo $rowUser['name'] ?></td>
+                                    <td><?php $this -> getSum($rowUser['id']);?> </td>
+                                </tr>
+        
+                                <tr id="collapse<?php echo $rowUser['id'] ?>" class="panel-collapse collapse " role="tabpanel" aria-labelledby="  headingOne">
+                                  <td  colspan="2" class="">
+                                    <!-- Orders Date With its Content -->
+                                        
+                                        <?php
+                                       $this -> viewChecksForUser($rowUser['id'] , "2");
+                                        ?>
+                                        
+                                    <!-- End Of Orders Date and Its Content -->
+                                  </td>
+                                </tr>
+                                <!-- End of Users Name With Details -->
+                            <?php	
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            <?
+			}  
+            else  
+            {  
+              	?>
+                	
+                <?php 
+            }  
+			
+				
+		}
 		
 		
 		/************************* Cancel From Users Tb  *************************/

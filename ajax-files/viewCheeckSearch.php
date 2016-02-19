@@ -61,7 +61,8 @@ $('#resetMyOrdersPageBtn').click(function()
     {
 	    if($searchUser == "0" and $searchDate == '0')
 	    {
-	    	echo "View All Cheeck For All Users";
+	    	//echo "View All Cheeck For All Users";
+	    	$users -> viewAllChecksSearch("" , "");
 	    }
 
 	    if($searchUser == "0" and $searchDate == '1')
