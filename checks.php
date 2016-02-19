@@ -7,11 +7,12 @@ function __autoload($name)
 }
 
 $orders=new orders();
+$users=new users();
 $validate = new validation();
 if(isset($_SESSION['cafeteriaSystem'])  ){
 if($_SESSION['type'] != '1' )
 {
-	header("location:index.html");
+	header("location:index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -72,22 +73,48 @@ if($_SESSION['type'] != '1' )
         
         <!-- End Of Check -->
         <div class="row">
-        	<div class="col-sm-12">
-            	<form class="form-inline">
+            <div class="col-sm-12">
+                <form class="form-inline">
+                  <div class="form-group">
+                      <?php
+                            if($resUsers = $users -> viewAllUsersToCheck())
+                            {
+                                ?>
+                                    <select id="userID" class="form-control">
+                                        <option value="0">All Users</option>
+                                    <?php
+                                    while($rowUsers=mysqli_fetch_array($resUsers))
+                                    {
+                                    ?>
+                                      <option value="<?php echo $rowUsers['id'] ?>"><?php echo $rowUsers['name'] ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                    </select>
+                                <?php
+                            }
+                            else
+                            {
+                                ?>
+                                    <div class="alsert alert-danger text-center">No Users Found</div>
+                                <?php   
+                            }
+                        ?>
+                  </div>
                   <div class="form-group">
                     <label for="datefrom">From</label>
-                    <input type="date" class="form-control" id="datefrom" placeholder="Enter Date From">
+                    <input type="text" class="form-control" id="datefrom" placeholder="YYYY-MM-DD">
                   </div>
                   <div class="form-group">
                     <label for="dateto">To</label>
-                    <input type="date" class="form-control" id="dateto" placeholder="Enter Date To">
+                    <input type="text" class="form-control" id="dateto" placeholder=" YYYY-MM-DD">
                   </div>
-                  <button type="submit" class="btn btn-default">Search</button>
+                  <button type="button" class="btn btn-default" id="viewCheckBtn">Search</button>
                 </form>
             </div>
         </div>
         <br>
-            <div class="row " >
+            <div class="row " id="viewCheeckSearchResult" >
             
                 <?php
                     if($orders -> checkAllOrders())

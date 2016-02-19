@@ -20,8 +20,9 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
     <title>BootStrap</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/css.css" rel="stylesheet">
-    
-    
+     
+	
+
 	
     <style>
 		body{
@@ -34,7 +35,7 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
     <script src="js/jquery-1.12.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>	
     <script src="js/scripts.js"></script>	
-
+          
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -55,7 +56,7 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
         <!--  <page Body  Will Change in Every Page> -->
         <div class="row">    	
             <div class="page-header text-center">
-                <h1>Orders</h1>
+                <h1>My Orders</h1>
             </div> 
         </div>
         

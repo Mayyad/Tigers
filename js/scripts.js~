@@ -9,9 +9,9 @@ $('[data-toggle="tooltip"]').tooltip();
 
 
 
+
 $('#viewMyOrdersBtn').click(function()
 {
-	
 	var to=$('#dateto').val();
 	var from=$('#datefrom').val();
 	if(to != "" && from != "")
@@ -28,26 +28,6 @@ $('#viewMyOrdersBtn').click(function()
 		});
 			
 	}
-});
-
-$('#viewCheckBtn').click(function()
-{
-	var userID=$('#userID').val();
-	var to=$('#dateto').val();
-	var from=$('#datefrom').val();
-	
-		$.ajax(
-		{
-			type : 'POST',
-			data : 'from=' + from +'&to='+to + "&userID="+userID,
-			url : "ajax-files/viewCheeckSearch.php" ,
-			success : function( result )
-			{
-				$("#viewCheeckSearchResult").html(result);	
-			}
-		});
-			
-	
 });
 
 

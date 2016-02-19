@@ -64,6 +64,25 @@ class users
 		}
 
 
+		/**********************  view All Users                           *******************/	
+	
+		function viewAllUsersToCheck()
+		{
+			$db = dbConnect::getInstance();
+	    		 $mysqli = $db->getConnection();
+			$query = " select * from users_tb ";  
+		    	$res = $mysqli->query($query) or die (mysqli_error($mysqli));
+			if(mysqli_num_rows($res)>0)
+			{
+				return $res;
+			}
+			else
+			{
+				return false;
+			}	
+		}
+
+
 		/**********************  View User Room No                           *******************/	
 	
 		function getMyRoom($roomNo)
