@@ -102,7 +102,7 @@ if($_SESSION['type'] != '1' )
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <form role="form" action="editcat.php" method="POST">
+                                        <form role="form" action="validatecat.php" method="POST">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" name="id" value="<?PHP echo $row['id'];?>" >
                                                 <label for="proName"> Category Name [Optional]</label>
@@ -166,7 +166,7 @@ if($_SESSION['type'] != '1' )
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <form role="form" action="editpro.php" method="POST">
+                                        <form role="form" action="validateproduct.php" method="POST">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" name="id" value="<?PHP echo $pro['id'];?>" >
                                                 <label for="proName"> Product Name [Optional]</label>
@@ -181,7 +181,7 @@ if($_SESSION['type'] != '1' )
                                                 <input type="hidden" class="form-control" name="pic" value="<?PHP echo $pro['prod_pic'];?>">
                                                 <br>
                                                 <input type="hidden" class="form-control" name="catID" value="<?PHP echo $row["id"];?>" >
-                                                <input type="submit" class="btn btn-success form-control" value="Change" name="submit" />
+                                                <input type="submit" class="btn btn-success form-control" value="Change" name="submitt" />
                                             </div>
                                         </form>
                                     </div>
@@ -252,6 +252,8 @@ if($_SESSION['type'] != '1' )
             <div class=" col-sm-5 col-sm-offset-9">  
                 <a href="#addcat" data-toggle="modal"> <img class ="img" width="80px"  height="80px" src="images/Button-Add-icon.png"> </a>
             </div>
+      
+      
             <!--Add Cat popup-->
             <div id="addcat"  class="modal fade" role="dialog" >
                              <div class="modal-dialog">
@@ -260,11 +262,11 @@ if($_SESSION['type'] != '1' )
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <form role="form" action="editcat.php" method="POST">
+                                        <form role="form" action="validatecat.php" method="POST">
                                             <div class="form-group">
                                                 
                                                 <label for="catName"> Category Name </label>
-                                                <input type="text" class="form-control" name="catName" required="required" >
+                                                <input type="text" class="form-control" name="catName"  >
                                                 <br>
                                                 <input type="submit" class="btn btn-success form-control" value="Add" name="submitt" />
                                             </div>

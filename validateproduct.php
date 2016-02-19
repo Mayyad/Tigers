@@ -16,15 +16,43 @@ if($_SESSION['type'] != '1' )
 }
 
 
-if (isset($_POST["submit"]))
+
+
+/////////////////////////////////////////////////////////Add Product
+
+if (isset($_POST["submit"]))   
 {
+    $addProductFalg = 1;
+    
     $proName = $_POST["proName"];
     $price = $_POST["price"];
     $statues = $_POST["statues"];
     $catId = $_POST["catID"];
-    //$picture = $_POST["pic"];
     
-    if(isset($_FILES["myfile"]))
+    if (!$validate->checkNotNull($proName))
+    {
+        $addProductFalg = 0;
+    }
+    
+    if (!$validate->checkNotNull($price))
+    {
+        $addProductFalg=0;
+    }
+    
+    if (!$validate->checkNotNull($statues))
+    {
+        $addProductFalg=0;
+    }
+    
+    if (!$validate->checkNotNull($catId))
+    {
+        $addProductFalg=0;
+    }
+    
+    
+    if ($addProductFalg == 1 )
+    {
+        if(isset($_FILES["myfile"]))
         {
                 if($validate->checkImage())
                 {	
@@ -52,11 +80,52 @@ if (isset($_POST["submit"]))
                 echo "<div class='alert alert-danger '>No Pics Found</div>";
         }
     
-   
+    }
+    
+    else
+    {
+        header("location:myproducts.php?LeckOFInformation");
+    }
    
    
 }
 
+
+
+/////////////////////////////////////////////////////////////Update Products
+
+
+if (isset($_POST["submitt"]))
+{
+    if (!empty($_POST["proName"]))
+    {
+       $proName = $_POST["proName"];
+    }
+    else 
+    {
+      $proName = $_POST["tempname"];   
+    }
+    
+    if (!empty($_POST["price"]))
+    {
+       $price = $_POST["price"];
+    }
+    else 
+    {
+      $price = $_POST["tempprice"];   
+    }
+    
+    
+    $picture = $_POST["pic"];
+    $id = $_POST["id"];
+    $statues = $_POST["status"];
+    $catId = $_POST["catID"];
+    echo $statues;
+    
+   $products->updatePro($id , $proName,$price,$statues, $picture,$catId);
+   
+   header("location:myproducts.php");
+}
 
 
 

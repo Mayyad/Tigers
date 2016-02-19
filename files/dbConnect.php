@@ -9,8 +9,8 @@ class dbConnect
 	private $_username = "ayyad";
 	private $_password = "sql";
 	*/
-	private $_username = "root";
-	private $_password = "iti";
+	private $_username = "ayyad";
+	private $_password = "sql";
 	private $_database = "cafeteria_db";
 	/*
 	Get an instance of the Database

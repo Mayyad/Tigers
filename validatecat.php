@@ -16,6 +16,8 @@ if($_SESSION['type'] != '1' )
 }
 
 
+//Update Category 
+
 if (isset($_POST["submit"]))
 {
     if (!empty($_POST["catName"]))
@@ -39,12 +41,34 @@ if (isset($_POST["submit"]))
 
 
 
+
+
+
+//Add Category 
+
 if(isset($_POST["submitt"]))
 {
+    
+    $addCatFlag = 1;
     $catname = $_POST["catName"];
-    //echo $catname;
-    $products->addcat($catname);
-    header("location:myproducts.php");
+    
+    if ($validate->checkNotNull($catname))
+    {
+    }
+    else {
+        $addCatFlag = 0;
+    }
+    
+
+    if ($addCatFlag == 1)
+    {
+        $products->addcat($catname);
+        header("location:myproducts.php");
+    }
+    else 
+    {
+        header("location:myproducts.php?CatNameIsEmpty");
+    }
 }
 
 
