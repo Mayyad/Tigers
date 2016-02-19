@@ -50,8 +50,27 @@ $('#viewCheckBtn').click(function()
 	
 });
 
+$('#productSearch').keyup(function()
+{
+	var word=$('#productSearch').val();
+	//alert(word);
+		$.ajax(
+		{
+			type : 'POST',
+			data : 'word=' + word ,
+			url : "ajax-files/viewProductSearch.php" ,
+			success : function( result )
+			{
+				$(".viewMyProducts").html(result);	
+			}
+		});
+			
+	
+});
+
 
 $('.prouctImage').click(function() {
+
 	var product_id =	$(this).attr("name");
 	
 	var product =	$(this).parent("div").children("h4").text();

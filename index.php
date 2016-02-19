@@ -155,8 +155,16 @@ if(isset($_SESSION['cafeteriaSystem'])  ){
                 	<hr >
                 <div class="row"><!-- Div All Product -->
                 	<div class="col-sm-12">
-                		<h3 class="page-header">All Products</h3>
-                        <div class="row" id="products">
+                		<h3 class="page-header">All Products
+
+                        </h3>
+                        <div class="row">
+                            <div class="col-sm-8"></div>
+                           <div class="col-sm-4">
+                           <input class="  form-control" type="text" id="productSearch" placeholder="Enter Product Name"    ><br>
+                            </div>
+                        </div>
+                        <div class="viewMyProducts row" id="products">
                     		<?php
 								if($products -> checkAvailableProducts())
 								{

@@ -59,6 +59,34 @@ class products
 				}
 			}
 		}
+
+
+		/************************* view All Available Products on dataBase Or No By Search *************************/
+		function viewavAilableProductsBySearch($word)
+		{
+			$db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+			$query = " select * from products_tb  where  status = '1' and   name like '".$word."%'";  
+            $res = $mysqli ->query($query) or die (mysqli_error($mysqli));
+			if(mysqli_num_rows($res) > 0)
+			{
+				while($rowProduct = mysqli_fetch_array($res))
+				{
+					?>
+                    <div class="col-sm-2">
+                        <img alt="<?php echo $rowProduct['price'] ?>"  name="<?php echo $rowProduct['id'] ?> " src="uploads/products/<?php echo $rowProduct['prod_pic'] ?>" data-toggle="tooltip" data-placement="right" title="Price : <?php echo $rowProduct['price'] ?> LE" class="img-responsive img-thumbnail prouctImage" />
+                        <h4 class="text-center text-muted"><?php echo $rowProduct['name'] ?></h4>
+                    </div>
+                    <?php	
+				}
+			}
+			else
+			{
+				?>
+                                    <div class="alert alert-danger">No Products Avilable</div>
+                                    <?php	
+			}
+		}
 		
 		/************************* Return Product Info *************************/
 		function returnProductInfo($p_id)

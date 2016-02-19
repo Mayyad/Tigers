@@ -186,6 +186,7 @@ if($_SESSION['type'] != '1' )
 					$roomNo=$_POST['roomNo'];
 					$ext=$_POST['ext'];
 					$mail=$_POST['mail'];
+					$secret=$_POST['secret'];
 					$password=$_POST['password'];
 					$cpassword=$_POST['password_confirm'];
 					#Check For Gender Exist  Or No
@@ -199,7 +200,7 @@ if($_SESSION['type'] != '1' )
 					}
 					//echo strlen($fname);
 					
-					if(trim($name) != "" and trim($roomNo) != "" and trim($ext) != "" and trim($mail) != "" and trim($password) != "" and trim($cpassword) != ""  )
+					if(trim($name) != "" and trim($roomNo) != ""  and trim($secret) != "" and trim($ext) != "" and trim($mail) != "" and trim($password) != "" and trim($cpassword) != ""  )
 					{
 						
 							if ($validate->checkMail($mail)) {
@@ -216,7 +217,7 @@ if($_SESSION['type'] != '1' )
 													{	
 														$pic_name=time()."_".$_FILES["myfile"]["name"];
 														move_uploaded_file($_FILES["myfile"]["tmp_name"], "uploads/users/".$pic_name);
-														$putValue=$users -> regist($name , $mail, $ext,  $pic_name , $password, $roomNo);
+														$putValue=$users -> regist($name , $mail, $ext,  $pic_name , $password, $roomNo , $secret);
 														if($putValue)
 														{
 															echo "Insert Complete";
@@ -282,6 +283,8 @@ if($_SESSION['type'] != '1' )
                 <p class="help-block">Please Enter Your Name</p>
               </div>
             </div>
+
+            
          
             <div class="control-group">
               <label class="control-label" for="email">E-mail</label>
@@ -307,7 +310,13 @@ if($_SESSION['type'] != '1' )
               </div>
             </div>
 
-
+            <div class="control-group">
+              <label class="control-label" for="username">ur Secret Answer</label>
+              <div class="controls">
+                <input id="username" name="secret" placeholder="" class="form-control input-lg" type="text">
+                <p class="help-block">Please Enter Your secret Answer</p>
+              </div>
+            </div>	
 
              <div class="control-group">
               <label class="control-label" for="roomNo">Room Number</label>

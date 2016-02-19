@@ -271,6 +271,15 @@ if($_SESSION['type'] != '1' )
                 <p class="help-block">Please provide your E-mail</p>
               </div>
             </div>
+
+
+            <div class="control-group">
+              <label class="control-label" for="email">Your Secret Answer</label>
+              <div class="controls">
+                <input id="email" name="text" disabled placeholder="" value="<?php echo $rowUser['secret'] ?>" class="form-control input-lg" type="text">
+                
+              </div>
+            </div>
          	
             
             <div class="control-group">

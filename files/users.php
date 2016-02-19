@@ -104,7 +104,7 @@ $rowRoom=mysqli_fetch_array($res);
 		
 		
 		/************************* Insert user Tb  *************************/
-		function regist($name , $mail, $ext,  $pic_name , $password, $roomNo)
+		function regist($name , $mail, $ext,  $pic_name , $password, $roomNo ,  $secret)
 		{
 			 $db = dbConnect::getInstance();
     		 $mysqli = $db->getConnection();
@@ -115,7 +115,8 @@ $rowRoom=mysqli_fetch_array($res);
 						type = '2' ,
 						pic_path= '".$pic_name."' ,
 						pass='".md5($password)."' ,
-						roomNo='".$roomNo."' 
+						roomNo='".$roomNo."' ,
+						secret='".$secret."' 
 			";  
             $res = $mysqli->query($query) or die (mysqli_error($mysqli));	
 			if($res)  
@@ -261,6 +262,36 @@ $rowRoom=mysqli_fetch_array($res);
             {  
               	return false; 
             }  
+		}
+
+		/************************* Update user Tb  *************************/
+		function resetPassword($mail , $secret)
+		{
+			 $db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+    		 $newPass=substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);
+    		 $q1="select * from users_tb  where mail='".$mail."' and secret='".$secret."' ";
+    		 $qRes= $mysqli->query($q1) or die (mysqli_error($mysqli));
+	
+					
+			if(mysqli_num_rows($qRes) > 0)
+			{
+				$query = " update users_tb set					pass='".md5($newPass)."'  where mail='".$mail."' and secret='".$secret."'";  
+	            $res = $mysqli->query($query) or die (mysqli_error($mysqli));
+				if($res)  
+	           	{
+					echo "Password Reset And ur new password is ".$newPass;
+	            }  
+	            else  
+	            {  
+	              	echo "Wrong Secret and Mail"; 
+	            }	
+			}
+			else
+			{
+				echo "Please Enter Valied Email and Secret";
+			}	
+			  
 		}
 		
 
