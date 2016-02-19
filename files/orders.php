@@ -512,6 +512,7 @@ class orders
 		}
 		
 		
+
 		/************************* View All Checks For All Users Orders Entered To DataBase *************************/
 		function viewAllChecks()
 		{
@@ -538,7 +539,7 @@ class orders
                             <!-- Users Name With Details -->
                                 <tr >
                                     <td >  <label class=" pull-left"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $rowUser['id'] ?>" aria-expanded="true" aria-controls="collapse<?php echo $rowUser['id'] ?>">+</a></label>&nbsp; <?php echo $rowUser['name'] ?></td>
-                                    <td><?php $this -> getSum($rowUser['id']);?> </td>
+                                    <td><?php $this -> getSum($rowUser['id'] , "");?> </td>
                                 </tr>
         
                                 <tr id="collapse<?php echo $rowUser['id'] ?>" class="panel-collapse collapse " role="tabpanel" aria-labelledby="  headingOne">
@@ -573,13 +574,108 @@ class orders
 
 
 
+		/************************* View All Orderes Belong To Certin User Entered To DataBase *************************/
+		function viewChecksForUserSearch($u_id  , $searchDate, $action)
+		{
+			 $db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+			$query = " select * from check_tb where u_id = '".$u_id."' ".$searchDate."   order by date";  
+            $res = $mysqli->query($query) or die (mysqli_error($mysqli));	
+			if(mysqli_num_rows($res) > 0)  
+           	{
+				?>
+                <table class="table table-bordered "  id="accordion" role="tablist" aria-multiselectable="true">
+                    <thead >
+                        <tr class="info ">
+                            <th>Order Date</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                            <?php
+							if($action != "2")
+							{
+							?>
+                            <th>Action</th>
+                            <?php
+							}
+							?>
+                        </tr>
+                    </thead>
+                    <tbody >
+                    <?php
+					$index=1;
+						while($row=mysqli_fetch_array($res))
+						{
+							?>
+                            <tr  >
+                                <td><?php echo $row['timeStamp'] ?> <label class=" pull-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#check_<?php echo $row['id'] ?>" aria-expanded="true" aria-controls="#check_<?php echo $row['id'] ?>">+</a></label></td>
+                                <td><?php  $this -> getOrderType($row['status']) ?></td>
+                                <td><?php echo $row['total_price'] ?></td>
+                                <?php if( $action !="2"){	?><td class="text-center"> <?php if($row['status'] == "3"  ) { ?><a href="myOrders.php?cancel=<?php echo $row['id'] ?>" class="btn btn-info">Cancel</a> <?php } ?> </td> <?php } ?>
+                            </tr>
+                            
+                            <tr id="check_<?php  echo  $row['id'] ?>" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+                                    	<td  colspan="4" >
+                                        	<?php
+													$query = " select * from orders_tb where check_id = '".$row['id']."'";  
+													$ordersRes = $mysqli->query($query) or die (mysqli_error($mysqli));	
+													if(mysqli_num_rows($ordersRes) > 0)  
+													{
+												?>
+                                            	<div class="row text-center" >
+                                    				<?php
+													while($rowOrder=mysqli_fetch_array($ordersRes))
+													{
+														$query = " select * from products_tb where id = '".$rowOrder['prod_id']."'";  
+														$prodRes = $mysqli->query($query) or die (mysqli_error($mysqli));
+														$rowProd=mysqli_fetch_array($prodRes);
+													?>
+                                                    <div class="col-sm-2 ">
+                                                        <img  width="100%"  src="uploads/products/<?php echo $rowProd['prod_pic'] ?>" data-toggle="tooltip" data-placement="right" title="Total Price : <?php echo $rowOrder['totalPrice'] ?> LE" class="img-responsive img-thumbnail" />
+                                                        <h4 class="text-center text-muted"><?php echo $rowProd['name']; ?></h4>
+                                                        <h4 class="text-center text-muted"><?php echo $rowOrder['amount'] ?></h4>
+                                                        
+                                                    </div>
+                                                    <?php
+													}
+													?>
+                                              	</div>
+                                                <div class="row text-left">&nbsp;&nbsp;
+                                                 <label>Total Amount : <?php echo $row['total_price'] ?> EGP</label>
+                                              	</div>
+                                                <?php
+													}
+													else
+													{
+														?>
+                                                        <div class="alert alert-danger">No Product Found On This Orders</div>
+                                                        <?php	
+													}
+												?>
+                                        </td>
+                                    </tr>
+                            <?php	
+						}
+					?>
+                    </tbody>
+				 </table>	
+                <?php
+            }  
+            else  
+            {  
+              	?>
+                	<div class="alert alert-danger text-center">Sorry No Orders Found On This DataBase</div>
+                <?php 
+            }  
+			
+				
+		}
 
 		/************************* View All Checks For All Users Orders Entered  Search  To DataBase *************************/
 		function viewAllChecksSearch( $userSearch , $searchDate )
 		{
 			 $db = dbConnect::getInstance();
     		 $mysqli = $db->getConnection();
-			$userQuery = " select * from users_tb ".$userSearch." ";  
+			$userQuery = " select * from users_tb  ".$userSearch." ";  
             $userRes = $mysqli->query($userQuery) or die (mysqli_error($mysqli));	
 			if(mysqli_num_rows($userRes) > 0)  
            	{	
@@ -600,7 +696,7 @@ class orders
                             <!-- Users Name With Details -->
                                 <tr >
                                     <td >  <label class=" pull-left"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $rowUser['id'] ?>" aria-expanded="true" aria-controls="collapse<?php echo $rowUser['id'] ?>">+</a></label>&nbsp; <?php echo $rowUser['name'] ?></td>
-                                    <td><?php $this -> getSum($rowUser['id']);?> </td>
+                                    <td><?php $this -> getSum($rowUser['id'] , $searchDate);?> </td>
                                 </tr>
         
                                 <tr id="collapse<?php echo $rowUser['id'] ?>" class="panel-collapse collapse " role="tabpanel" aria-labelledby="  headingOne">
@@ -608,7 +704,7 @@ class orders
                                     <!-- Orders Date With its Content -->
                                         
                                         <?php
-                                       $this -> viewChecksForUser($rowUser['id'] , "2");
+                                       $this -> viewChecksForUserSearch($rowUser['id'] , $searchDate , "2");
                                         ?>
                                         
                                     <!-- End Of Orders Date and Its Content -->
@@ -625,7 +721,7 @@ class orders
             else  
             {  
               	?>
-                	
+                
                 <?php 
             }  
 			
@@ -634,12 +730,12 @@ class orders
 		
 		
 		/************************* Cancel From Users Tb  *************************/
-		function getSum($u_id)
+		function getSum($u_id , $searchDate)
 		{
 			$db = dbConnect::getInstance();
     		 $mysqli = $db->getConnection();
 			  $myarr['total'] =0;
-			 $query = "select  SUM(total_price) AS total  from check_tb where u_id='".$u_id."'";  
+			 $query = "select  SUM(total_price) AS total  from check_tb where u_id='".$u_id."' ".$searchDate." ";  
             $res=$mysqli->query($query) or die (mysqli_error($mysqli));
 			
 			$myarr=mysqli_fetch_assoc($res);

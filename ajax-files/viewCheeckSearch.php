@@ -61,23 +61,26 @@ $('#resetMyOrdersPageBtn').click(function()
     {
 	    if($searchUser == "0" and $searchDate == '0')
 	    {
-	    	//echo "View All Cheeck For All Users";
-	    	$users -> viewAllChecksSearch("" , "");
+	    	//echo "View All Cheeck For All Users"; 
+	    	$orders -> viewAllChecksSearch("" , "");
 	    }
 
 	    if($searchUser == "0" and $searchDate == '1')
 	    {
-	    	echo "View All Cheeck For All Users in Date Between to dates";
+	    	//echo "View All Cheeck For All Users in Date Between to dates";
+	    	$orders -> viewAllChecksSearch("" , "and ( date between '".$searchDateFrom."' AND '".$searchDateTo."' )");
 	    }
 
 	    if($searchUser != "0"   and $searchDate == '0')
 	    {
-	    	echo "View All Cheeck For user  with all dates";
+	    	//echo "View All Cheeck For user  with all dates";
+	    	$orders -> viewAllChecksSearch("where  id = '".$searchUser."'" , "");
 	    }
 
 	    if($searchUser != "0"   and  $searchDate == '1')
 	    {
-	    	echo "View All Cheeck For user  In Certin Date";
+	    	//echo "View All Cheeck For user  In Certin Date";
+	    	$orders -> viewAllChecksSearch("where  id = '".$searchUser."'" , " and ( date between '".$searchDateFrom."' AND '".$searchDateTo."' )");
 	    }
 	 }
 	 else
