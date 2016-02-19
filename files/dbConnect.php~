@@ -5,7 +5,11 @@ class dbConnect
 	private $_connection;
 	private static $_instance; //The single instance
 	private $_host = "localhost";
-	private $_username = "ayad";
+	/*
+	private $_username = "ayyad";
+	private $_password = "sql";
+	*/
+	private $_username = "ayyad";
 	private $_password = "sql";
 	private $_database = "cafeteria_db";
 	/*
