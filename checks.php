@@ -116,7 +116,11 @@ if($_SESSION['type'] != '1' )
         <br>
             <div class="row " id="viewCheeckSearchResult" >
             
-                <?php
+
+
+                
+                <?php    require_once("ajax-files/paginationChecks.php"); 
+                    /*
                     if($orders -> checkAllOrders())
                     {
                         
@@ -127,11 +131,11 @@ if($_SESSION['type'] != '1' )
                         ?>
                         <div class="alert alert-danger">No Orders Found</div>
                         <?php	
-                    }
+                    }*/
                 ?>
 
             </div>
-                       
+           
                      
         <!--  Untill Here -->
         

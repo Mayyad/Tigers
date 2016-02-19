@@ -7,13 +7,11 @@ $('#resetAllChecksPageBtn').click(function()
 	$('#userID option:eq(0)').prop('selected', true);
 	$("#dateto").val('');
 	$("#datefrom").val('');
-	//$("#viewCheeckSearchResult").append(' require_once("../ajax-files/paginationChecks.php");');
 	
 	$.ajax(
 	{
 		type : 'POST',
-		data:'page=1&secondryPage=2' ,
-		url : "ajax-files/paginationChecks.php" ,
+		url : "ajax-files/viewAllCheckReset.php" ,
 		success : function( result )
 		{
 			$("#viewCheeckSearchResult").html(result);	

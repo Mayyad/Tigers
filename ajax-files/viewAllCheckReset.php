@@ -1,6 +1,8 @@
 
 <?php
-	session_start();
+require_once("ajax-files/paginationChecks.php");
+?><?php
+	/*session_start();
 	require_once("../files/orders.php");
 	$orders =new orders;
 	
