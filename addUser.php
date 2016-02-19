@@ -226,6 +226,7 @@ if($_SESSION['type'] != '1' )
 														{
 															echo "<div class='alert alert-danger '>Some Thing Wrong happen please Try Again Later</div>";	
 														}
+                                                                                                                
 													}
 													else
 													{

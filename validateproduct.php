@@ -22,12 +22,39 @@ if (isset($_POST["submit"]))
     $price = $_POST["price"];
     $statues = $_POST["statues"];
     $catId = $_POST["catID"];
-    $picture = $_POST["pic"];
-    //echo $statues;
+    //$picture = $_POST["pic"];
     
-   $products->AddPro($proName,$price,$statues, $picture,$catId);
+    if(isset($_FILES["myfile"]))
+        {
+                if($validate->checkImage())
+                {	
+                        $pic_name=time()."_".$_FILES["myfile"]["name"];
+                        move_uploaded_file($_FILES["myfile"]["tmp_name"], "uploads/products/".$pic_name);
+                        $putValue= $products->AddPro($proName,$price,$statues, $pic_name,$catId);
+                        if($putValue)
+                        {
+                                echo "Insert Complete";
+                                header("location:myproducts.php?action=New Product Added To Our DataBase");
+                        }
+                        else
+                        {
+                                echo "<div class='alert alert-danger '>Some Thing Wrong happen please Try Again Later</div>";	
+                        }
+                }
+                else
+                {
+                        echo "<div class='alert alert-danger '>Invalied Picture</div>";	
+                }
+
+        }
+        else
+        {
+                echo "<div class='alert alert-danger '>No Pics Found</div>";
+        }
+    
    
-   header("location:myproducts.php");
+   
+   
 }
 
 

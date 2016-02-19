@@ -206,7 +206,7 @@ if($_SESSION['type'] != '1' )
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <form role="form" action="validateproduct.php" method="POST">
+                                        <form role="form" action="validateproduct.php" method="POST" enctype="multipart/form-data" >
                                             <div class="form-group">
                                                 <label for="proName"> Product Name </label>
                                                 <input type="text" class="form-control" name="proName">
@@ -218,7 +218,8 @@ if($_SESSION['type'] != '1' )
                                                     <option value="0"> Unavailable </option>
                                                 </select>
                                                 <label for="proName"> Product Picture </label>
-                                                <input type="file" class="form-control" name="pic">
+                                                <input type="file" class="form-control" name="myfile">
+                                                
                                                 <br>
                                                 <input type="hidden" class="form-control" name="catID" value="<?PHP echo $row["id"];?>" >
                                                 <input type="submit" class="btn btn-success form-control" value="Add" name="submit" />
