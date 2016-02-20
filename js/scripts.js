@@ -340,5 +340,39 @@ function ordersRedirectDinamicaly(){
 	});
 }
 
+// scripts of On/OFF Products 
 
+function changeProudctStatusUnAvail(PID){
+            console.log("changeProudctStatusUNAvail");
 
+    $.post("ajax-files/available.php",
+        {
+            product_id: PID,
+            product_avail: "product_unavail"
+        },
+        function(data,status){
+            if(status == "success"){
+                console.log(status);
+               
+                $('#status'+PID).attr("onclick","changeProudctStatusAvail("+PID+")");
+            }
+                        console.log(data);
+
+        });
+}
+function changeProudctStatusAvail(PID){
+console.log("changeProudctStatusAvail");
+    $.post("ajax-files/available.php",
+        {
+            product_id: PID,
+            product_avail: "product_avail"
+        },
+        function(data, status){
+            if(  status == "success"){
+               
+                //x$('#statusspan'+PID).html("Avialble");
+                $('#status'+PID).attr("onclick","changeProudctStatusUnAvail("+PID+")");
+            }
+            console.log(data);
+        });
+}

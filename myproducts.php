@@ -46,6 +46,13 @@ if($_SESSION['type'] != '1' )
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    
+    <script>
+        
+</script>
+
+
   </head>
 <body>
   <div class="container">
@@ -146,10 +153,20 @@ if($_SESSION['type'] != '1' )
                             <div class="col-sm-2">
                                 <div>
                                   <div class="col-sm-2">
-                                    <span class="checkbox">
-                                        <input type="checkbox">
-                                        <label onclick="" data-on="ON" data-off="OFF"></label>
-                                    </span>
+                                    
+                                        <?php 
+                                        
+                                         if ($pro['status']==1){
+                                            echo '<span id ="status'.$pro["id"].'" class="checkbox" onclick="changeProudctStatusAvail('.$pro["id"].')">
+                                           <input type="checkbox" checked ><label  data-on="ON" data-off="OFF"></label> </span>';}  
+                                           else 
+                                           {
+
+                                           echo '<span id ="status'.$pro["id"].'" class="checkbox" onclick="changeProudctStatusUnAvail('.$pro["id"].')">
+                                           <input type="checkbox"><label data-on="ON" data-off="OFF"></label> </span>';                                         }
+                                        
+                                        
+                                        ?>
                                   </div>
                                 </div>
                             </div>
