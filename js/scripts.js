@@ -289,7 +289,7 @@ $('#confirmOrderBtn').click(function()
 });
 
 
- $('#checkava').click(function(){
+ /*$('#checkava').click(function(){
        
        
        if ($('#checkava').text('UnAvailable') )
@@ -308,7 +308,7 @@ $('#confirmOrderBtn').click(function()
        console.log('ok'); 
         
         
-    });
+    }); */
 
 
 
@@ -342,10 +342,10 @@ function ordersRedirectDinamicaly(){
 
 // scripts of On/OFF Products 
 
-function changeProudctStatusUnAvail(PID){
-            console.log("changeProudctStatusUNAvail");
-
-    $.post("ajax-files/available.php",
+function changeProudctStatusUnAvail(PID)
+{
+      console.log("changeProudctStatusUNAvail");
+      $.post("ajax-files/available.php",
         {
             product_id: PID,
             product_avail: "product_unavail"
@@ -357,11 +357,13 @@ function changeProudctStatusUnAvail(PID){
                 $('#status'+PID).attr("onclick","changeProudctStatusAvail("+PID+")");
             }
                         console.log(data);
-
         });
 }
-function changeProudctStatusAvail(PID){
-console.log("changeProudctStatusAvail");
+
+
+function changeProudctStatusAvail(PID)
+{
+    console.log("changeProudctStatusAvail");
     $.post("ajax-files/available.php",
         {
             product_id: PID,
@@ -372,6 +374,55 @@ console.log("changeProudctStatusAvail");
                
                 //x$('#statusspan'+PID).html("Avialble");
                 $('#status'+PID).attr("onclick","changeProudctStatusUnAvail("+PID+")");
+            }
+            console.log(data);
+        });
+}
+
+
+
+
+//scripts for   ON/OFF Category
+
+
+function changeCatStatusUnAvail(PID)
+{
+      console.log("changecatStatusUNAvail");
+      $.post("ajax-files/availableCat.php",
+        {
+            product_id: PID,
+            product_avail: "product_unavail"
+        },
+        function(data,status){
+            if(status == "success"){
+                console.log(status);
+               
+                $('#statuss'+PID).attr("onclick","changeCatStatusAvail("+PID+")");
+                $('#statuss'+PID).attr("class","btn btn-danger");
+                $('#statuss'+PID).html("UnAvailable");
+                
+                
+            }
+             console.log(data);
+        });
+}
+
+
+function changeCatStatusAvail(PID)
+{
+    console.log("changecatStatusAvail");
+    $.post("ajax-files/availableCat.php",
+        {
+            product_id: PID,
+            product_avail: "product_avail"
+        },
+        function(data, status){
+            if(  status == "success"){
+               
+                //x$('#statusspan'+PID).html("Avialble");
+                $('#statuss'+PID).attr("onclick","changeCatStatusUnAvail("+PID+")");
+                $('#statuss'+PID).attr("class","btn btn-success");
+                $('#statuss'+PID).html("Available");                                           
             }
             console.log(data);
         });

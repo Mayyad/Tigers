@@ -97,7 +97,8 @@ if($_SESSION['type'] != '1' )
 
                     <td> 5 </td>
 
-                    <td> <?php if($row['status'] == "1"){ ?>  <button id="checkava" type="button" class="btn btn-success" > Available </button> <?php } else{?> <button id="checkava" type="button" class="btn btn-success" > UnAvailable </button> <?php } ?> </td>
+                    <td> <?php if($row['status'] == "1"){ echo' <button id="statuss'.$row["id"].'" onclick="changeCatStatusAvail('.$row["id"].')"   id="checkava" type="button" class="btn btn-danger" > UnAvailable </button> '; }
+                                else { echo' <button id="statuss'.$row["id"].'"     onclick="changeCatStatusUnAvail('.$row["id"].')" id="checkava" type="button" class="btn btn-success" > Available </button>';  }?> </td>
 
                     <td class="text-center"> <a href="#edtcat<?PHP echo $row["id"];?>" class="btn btn-info" data-toggle="modal" > Edit </a> </td>
                      
