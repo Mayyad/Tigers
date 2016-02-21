@@ -11,13 +11,14 @@ $('[data-toggle="tooltip"]').tooltip();
 
 $('#viewMyOrdersBtn').click(function()
 {
-	
+//lert("a");
 	var to=$('#dateto').val();
 	var from=$('#datefrom').val();
 	if(to != "" && from != "")
 	{
 		$.ajax(
 		{
+
 			type : 'POST',
 			data : 'from=' + from +'&to='+to,
 			url : "ajax-files/viewMyOrdersSearch.php" ,
@@ -340,8 +341,28 @@ function ordersRedirectDinamicaly(){
 	});
 }
 
-// scripts of On/OFF Products 
 
+function myOrdersRedirectDinamicaly(){
+	
+	$.ajax({
+		url:"ajax-files/myOrdersRedirectPage.php",
+		method:'get',
+		data:{
+			"lastModified":LastModified
+		},
+		success:function(response){
+			
+			LastModified = response.lastModified;
+			setTimeout(myOrdersRedirectDinamicaly,10000)	
+			$("#viewMyOrdersSearchView").html(response);
+
+		}
+
+	});
+}
+
+// scripts of On/OFF Products 
+/*
 function changeProudctStatusUnAvail(PID)
 {
       console.log("changeProudctStatusUNAvail");
@@ -360,7 +381,7 @@ function changeProudctStatusUnAvail(PID)
         });
 }
 
-
+*/
 function changeProudctStatusAvail(PID)
 {
     console.log("changeProudctStatusAvail");

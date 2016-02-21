@@ -109,7 +109,28 @@ class orders
 				return false;
 			}
 		}
-		
+
+
+
+		/* **************************           Check Order Is Mine      ****************************/
+		function checkAvailableProduct($prodNum )
+		{
+			$db = dbConnect::getInstance();
+    		 $mysqli = $db->getConnection();
+			$query = " select * from products_tb  where id= '".$prodNum."' and status ='1' ";  
+            $res = $mysqli->query($query) or die (mysqli_error($mysqli));
+			if(mysqli_num_rows($res) > 0)
+			{
+				return true;	
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+
+
 		/************************* Check For Order Number  on dataBase Or No *************************/
 		function checkAllOrders()
 		{

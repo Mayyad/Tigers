@@ -6,8 +6,8 @@ class dbConnect
 	private static $_instance; //The single instance
 	private $_host = "localhost";
 	
-	private $_username = "ayyad";
-	private $_password = "sql";
+	private $_username = "root";
+	private $_password = "iti";
 	
 	//private $_username = "root";
 	//private $_password = "iti";

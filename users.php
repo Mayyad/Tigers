@@ -12,7 +12,7 @@ $validate = new validation();
 if(isset($_SESSION['cafeteriaSystem'])  ){
 if($_SESSION['type'] != '1' )
 {
-	header("location:index.html");
+	header("location:index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -47,7 +47,7 @@ margin-top:10px ;
 <div class="modal-content">
 <div class="modal-footer">
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-<a type="button" class="btn btn-primary" href="view.html" >More Details</a>
+<a type="button" class="btn btn-primary" href="view.php" >More Details</a>
 </div>
 </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->

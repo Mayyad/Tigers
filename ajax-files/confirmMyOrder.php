@@ -34,10 +34,14 @@ $orders = new orders();
 							if($products -> returnProductInfo($key))
 							{	
 								$productInfo = mysqli_fetch_array($products -> returnProductInfo($key));
-								//echo "Found" . $productInfo['name'];	
-								$sum= $value * $productInfo['price'];
-								$orders -> insertOrder($returnRow , $key , $value , $sum );
-								$totalAmount=$totalAmount+$sum;
+								//echo "Found" . $productInfo['name'];
+								if($productInfo['status'] == "1")
+								{
+									$sum= $value * $productInfo['price'];
+									$orders -> insertOrder($returnRow , $key , $value , $sum );
+									$totalAmount=$totalAmount+$sum;	
+								}	
+								
 							}
 							
 								

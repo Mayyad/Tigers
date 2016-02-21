@@ -24,7 +24,7 @@
 				else
 				{
 			  ?>
-                <li class="active"><a href="index.html">Home </a></li>
+                <li class="active"><a href="index.php">Home </a></li>
                 <?php
 				}
 				?>
@@ -34,7 +34,6 @@
 				{
 				?>
                 <li><a href="myproducts.php">My Products</a></li>
-                <li><a href="categories.html">Categories</a></li>
                 <li><a href="users.php">Users</a></li>
                 <li><a href="manualOrders.php">Manual Orders</a></li>
                 <li><a href="checks.php">Checks</a></li>
@@ -47,7 +46,6 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['name'] ?> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="setting.html">Setting</a></li>
                     <li><a href="login.php?logout">Logout</a></li>
                   </ul>
                 </li>

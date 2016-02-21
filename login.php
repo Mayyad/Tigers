@@ -21,7 +21,7 @@ if(isset($_SESSION['cafeteriaSystem']))
 	}
 	else
 	{
-		header("location:index.html");
+		header("location:index.php");
 	}
 
 }
