@@ -17,7 +17,8 @@ $client_amount = isset($_GET['lastModified'])?$_GET['lastModified']:0;
 
 //$server_time = filemtime($file_name);
 $server_time = mysqli_num_rows($res);
-while($client_amount != $server_time){
+$client_amount = $server_time;
+while($client_amount == $server_time){
 	//echo "bbbb ".$client_amount;
 	sleep(10);
 	clearstatcache();
