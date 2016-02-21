@@ -795,8 +795,12 @@ class orders
     		 $mysqli = $db->getConnection();
 			 $query = " update  check_tb  set status = '2' where id='".$orderNum."' ";  
             $res=$mysqli->query($query) or die (mysqli_error($mysqli));
+            $mysqli->query("CREATE EVENT updateStatus".$orderNum." ON SCHEDULE  AT CURRENT_TIMESTAMP + INTERVAL 1 MINUTE DO 
+            	update  check_tb  set status = '1' where id='".$orderNum."' ;
+            	") or die (mysqli_error($mysqli));
 			if($res)
 			{
+
 				return true;	
 			}
 			else

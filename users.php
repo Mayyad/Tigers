@@ -111,7 +111,159 @@ margin-top:10px ;
 					}
 				}
 	
-	
+	/*
+		if(isset($_GET['unavailable']))
+		{
+			$roomNum=$_GET['unavailable'];
+			if($validate -> checkNotNull($roomNum))
+			{
+				if($validate -> checkNumeric($roomNum))
+				{
+					if($rooms -> checkRoomNumById($roomNum))
+					{
+						?>
+						<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+						  <div class="modal-dialog">
+							<div class="modal-content">
+							  <div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span >&times;</span></button>
+								<h4 class="modal-title text-left">Edit Room</h4>
+							  </div>
+							  <div class="modal-body ">
+								  <?php
+									if(isset($_POST['unavailableRoomBtn']))
+									{
+										if($rooms -> checkUserSelectRoom($roomNum))
+										{
+											if($rooms -> unavilableRoom($roomNum))
+											{
+												header("location:rooms.php?action=Room unavailable Succssesfilly");
+											}
+											else
+											{
+												?>
+                                                <div class="alert alert-danger ">Sorry Some Thing Wrong On Connection With DataBase</div>
+                                                <?php	
+											}
+										}
+										else
+										{
+											header("location:users.php?action=Sorry This User Canot unavilable Becose Its Choosen By User");
+										}
+										
+									}
+								  ?>              
+								<form class="form-horizontal" action="users.php?unavailable=<?php echo $roomNum ?>" method="POST">
+									<div class="row">
+									 	Are You Sure You Wanna To unavailable This Roms?
+                                        <div class="text-right">
+                                            <button type="submit" name="unavailableRoomBtn" class="btn btn-danger">yes</button>
+                                            <a class="btn btn-info" href="rooms.php">No</a>	
+                                        </div>
+                                 	 </div>
+							  </div>
+							  <div class="modal-footer">
+							  </div>
+							</div><!-- /.modal-content -->
+						  </div><!-- /.modal-dialog -->
+						</div>
+                        
+						<?php
+					}
+					else
+					{
+						header("location:rooms.php");	
+					}
+				}
+				else
+				{
+					header("location:rooms.php");	
+				}
+			}
+			else
+			{
+				header("location:rooms.php");	
+			}
+		}
+		
+
+
+
+
+		if(isset($_GET['available']))
+		{
+			$roomNum=$_GET['available'];
+			if($validate -> checkNotNull($roomNum))
+			{
+				if($validate -> checkNumeric($roomNum))
+				{
+					if($rooms -> checkRoomNumById($roomNum))
+					{
+						?>
+						<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+						  <div class="modal-dialog">
+							<div class="modal-content">
+							  <div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span >&times;</span></button>
+								<h4 class="modal-title text-left">Edit Room</h4>
+							  </div>
+							  <div class="modal-body ">
+								  <?php
+									if(isset($_POST['availableRoomBtn']))
+									{
+										if($rooms -> avilableRoom($roomNum))
+										{
+											header("location:rooms.php?action=Room available Succssesfilly");
+										}
+										else
+										{
+											?>
+											<div class="alert alert-danger ">Sorry Some Thing Wrong On Connection With DataBase</div>
+											<?php	
+										}	
+									}
+								  ?>              
+								<form class="form-horizontal" action="rooms.php?available=<?php echo $roomNum ?>" method="POST">
+									<div class="row">
+									 	Are You Sure You Wanna To available This Roms?
+                                        <div class="text-right">
+                                            <button type="submit" name="availableRoomBtn" class="btn btn-danger">yes</button>
+                                            <a class="btn btn-info" href="rooms.php">No</a>	
+                                        </div>
+                                 	 </div>
+							  </div>
+							  <div class="modal-footer">
+							  </div>
+							</div><!-- /.modal-content -->
+						  </div><!-- /.modal-dialog -->
+						</div>
+                        
+						<?php
+					}
+					else
+					{
+						header("location:rooms.php");	
+					}
+				}
+				else
+				{
+					header("location:rooms.php");	
+				}
+			}
+			else
+			{
+				header("location:rooms.php");	
+			}
+		}
+		
+
+
+
+*/
+
+
+
+
 		if($returnUsers = $users -> viewAllUsers())
 		{
 			?>
@@ -136,7 +288,24 @@ margin-top:10px ;
 <td><?php $users->getMyRoom($rowUsers['roomNo']); ?></td>
 <td width="20%"><img  src="uploads/users/<?php echo $rowUsers['pic_path'] ?>" class="img-responsive"></td>
 <td><?php echo $rowUsers['ext'] ?></td>
-<td class="text-center"> <a href="editUser.php?edit=<?php echo $rowUsers['id'] ?>" class="btn btn-info">Edit</a>&nbsp;&nbsp; <a href="users.php?del_id=<?php echo $rowUsers['id'] ?>" class="btn btn-info">Delete</a></td> </td>
+<td class="text-center">
+<?php
+/*
+if($rowUsers['type'] == "2")
+{
+	?>
+	<a href="users.php?unavailable=<?php echo $rowUsers['id'] ?>" class="btn btn-info">Block User</a>&nbsp;&nbsp;
+	<?php
+}
+else
+{
+	?>
+	<a href="users.php?available=<?php echo $rowUsers['id'] ?>" class="btn btn-info">UnBlock User</a>&nbsp;&nbsp;
+	<?php
+}
+*/
+?>
+ <a href="editUser.php?edit=<?php echo $rowUsers['id'] ?>" class="btn btn-info">Edit</a>&nbsp;&nbsp; <a href="users.php?del_id=<?php echo $rowUsers['id'] ?>" class="btn btn-info">Delete</a></td> </td>
 </tr>
 <?php
 	}
