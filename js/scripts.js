@@ -235,10 +235,7 @@ for (var i = 0; i < idArray.length; i++) {
 				viewMyRecentOrders();	
 				
 			},
-			complete : function()
-			{
-				//location.href='index.php';		
-			}
+			
 		});
 		
 			
@@ -360,12 +357,37 @@ function ordersRedirectDinamicaly(){
 		success:function(response){
 			
 			LastModified = response.lastModified;
-			setTimeout(ordersRedirectDinamicaly,3000);	
+			setTimeout(ordersRedirectDinamicaly,10000);	
 			$("#viewOrders").html(response);
 		}
 
 	});
 }
+
+
+/*************************  ******************************
+function myOrdersRedirectDinamicaly(){
+	
+	$.ajax({
+		url:"ajax-files/myOrdersRedirectPage.php",
+		method:'get',
+		data:{
+			"lastModified":LastModified ,
+			"LastModifiedDelivered" : LastModifiedDelivered , 
+			"LastModifiedProcessing" : LastModifiedProcessing
+		},
+		success:function(response){
+			
+			LastModified = response.lastModified;
+			setTimeout(myOrdersRedirectDinamicaly,10000)	
+			$("#viewMyOrdersSearchView").html(response);
+
+		}
+
+	});
+}
+***********************************************************/
+
 
 
 function myOrdersRedirectDinamicaly(){
@@ -374,7 +396,7 @@ function myOrdersRedirectDinamicaly(){
 		url:"ajax-files/myOrdersRedirectPage.php",
 		method:'get',
 		data:{
-			"lastModified":LastModified
+			"lastModified":LastModified 
 		},
 		success:function(response){
 			

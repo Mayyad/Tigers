@@ -38,7 +38,7 @@ if(isset($_GET['logout']))
 ?>
 <html>
 	<head>
-	<title> Cafetria</title>
+	<title>Cafeteria System | Login</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 

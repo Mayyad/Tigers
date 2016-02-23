@@ -18,7 +18,7 @@ $client_amount = isset($_GET['lastModified'])?$_GET['lastModified']:0;
 $server_time = mysqli_num_rows($res);
 $client_amount = $server_time;
 while($client_amount == $server_time){
-	sleep(10);
+	sleep(3);
 	clearstatcache();
 	$query1 = " select * from check_tb  where  status = '3' ";  
 $res1 = $mysqli->query($query1) or die (mysqli_error($mysqli));

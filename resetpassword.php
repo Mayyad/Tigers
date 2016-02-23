@@ -26,7 +26,7 @@ if(isset($_SESSION['cafeteriaSystem']))
 ?>
 <html>
 	<head>
-	<title> Cafetria</title>
+	<title>Cafeteria System | Reset Password</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 

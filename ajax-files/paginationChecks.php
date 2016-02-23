@@ -1,5 +1,5 @@
 <?php 
-	$connection=mysqli_connect('localhost','root','iti','cafeteria_db')or die ("Error in Connection to server ") .mysqli_error();
+	$connection=mysqli_connect('localhost','adminJy48FWL','wUP-8TVubuIq','ititigers')or die ("Error in Connection to server ") .mysqli_error();
 if (mysqli_connect_errno($connection))
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
